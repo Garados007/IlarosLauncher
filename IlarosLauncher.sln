@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{F283AB81
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "compacthelper", "Utils\compacthelper\compacthelper.csproj", "{EAF04458-E1EE-4777-B14C-33216B168C8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fileinfo", "Utils\fileinfo\fileinfo.csproj", "{E5A07F4E-9CAE-45B4-9347-895E4B521587}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EAF04458-E1EE-4777-B14C-33216B168C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAF04458-E1EE-4777-B14C-33216B168C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAF04458-E1EE-4777-B14C-33216B168C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{652B7A30-9CD8-4C24-8576-6052A7DBF03F} = {F3CF47E6-E386-416E-AFAE-8906FC15ECA1}
 		{D53BE740-579B-412D-9FA8-3505A12E958D} = {652B7A30-9CD8-4C24-8576-6052A7DBF03F}
 		{EAF04458-E1EE-4777-B14C-33216B168C8C} = {F283AB81-B39B-451A-8737-F65B93025073}
+		{E5A07F4E-9CAE-45B4-9347-895E4B521587} = {F283AB81-B39B-451A-8737-F65B93025073}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E7C3F3D9-B3CA-4854-A8EC-154CA8239196}
