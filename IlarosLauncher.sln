@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "compacthelper", "Utils\comp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fileinfo", "Utils\fileinfo\fileinfo.csproj", "{E5A07F4E-9CAE-45B4-9347-895E4B521587}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{7FD5E5E0-E1BB-4EA8-8558-43DA2140E9CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher.UpdaterCreator", "Install\IlarosLauncher.UpdaterCreator\IlarosLauncher.UpdaterCreator.csproj", "{B6F383E9-575B-42FB-B4F6-0225723CEA70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5A07F4E-9CAE-45B4-9347-895E4B521587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F383E9-575B-42FB-B4F6-0225723CEA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F383E9-575B-42FB-B4F6-0225723CEA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F383E9-575B-42FB-B4F6-0225723CEA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F383E9-575B-42FB-B4F6-0225723CEA70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{D53BE740-579B-412D-9FA8-3505A12E958D} = {652B7A30-9CD8-4C24-8576-6052A7DBF03F}
 		{EAF04458-E1EE-4777-B14C-33216B168C8C} = {F283AB81-B39B-451A-8737-F65B93025073}
 		{E5A07F4E-9CAE-45B4-9347-895E4B521587} = {F283AB81-B39B-451A-8737-F65B93025073}
+		{B6F383E9-575B-42FB-B4F6-0225723CEA70} = {7FD5E5E0-E1BB-4EA8-8558-43DA2140E9CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E7C3F3D9-B3CA-4854-A8EC-154CA8239196}
