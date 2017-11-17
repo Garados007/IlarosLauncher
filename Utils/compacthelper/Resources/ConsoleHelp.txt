@@ -1,0 +1,17 @@
+Compact Helper Hilfe
+====================
+
+compacthelper [/D] [/N [/P Größe] [/B Größe] [/R] [/SF] [/E]] /S Pfad /T Pfad
+
+    /S Pfad    Der Quellordner für alle Dateien
+    /T Pfad    Die Zieldatei für alle Dateien
+    /D         Löscht nach Abschluss den Quellordner
+    /N         Erzeugt gegebenfalls eine neue Datei
+    /P Größe   Die neue Pointergröße. Gültige Werte liegen zwischen
+               1 und 8 (default: 3)
+    /B Größe   Die neue Blockgröße (default: 65535)
+    /R         Die Pointer gelten Blockweise (default: Byteweise)
+    /SF        Es wird keine Objekthierarchie in der Zieldatei erstellt
+    /E         Es werden erweiterte Eigenschaften wie Änderungsdatum
+               gespeichert.
+    /?         Diese Hilfe
