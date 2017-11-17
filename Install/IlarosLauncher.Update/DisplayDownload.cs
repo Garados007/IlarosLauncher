@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
@@ -10,7 +6,6 @@ namespace IlarosLauncher.Update
 {
     public class DisplayDownload : Form
     {
-        private System.ComponentModel.IContainer components;
         private ProgressBar progressBar1;
         string tempPath = "%TEMP%\\IlarosLauncher";
 
@@ -29,7 +24,8 @@ namespace IlarosLauncher.Update
 
         void getTempPath()
         {
-            var key = Registry.CurrentUser.OpenSubKey("Software")?.OpenSubKey("IlarosLauncher");
+            var key = Registry.CurrentUser.OpenSubKey("Software");
+            if (key != null ) key = key.OpenSubKey("IlarosLauncher");
             if (key == null) return;
             var path = key.GetValue("TempPath", tempPath);
             tempPath = path.ToString();

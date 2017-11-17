@@ -85,7 +85,7 @@ namespace IlarosLauncher.UpdaterCreator
             sb.Append(@""";
         }
     }");
-            File.WriteAllText("Content\\DownloadSetting.cs", sb.ToString());
+            File.WriteAllText("Content\\DownloadSettings.cs", sb.ToString());
 
             using (var mcp = new CSharpCodeProvider())
             {
@@ -99,6 +99,7 @@ namespace IlarosLauncher.UpdaterCreator
                 cp.ReferencedAssemblies.Add(typeof(Form).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(Point).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(System.Deployment.Application.ApplicationDeployment).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(Component).Assembly.Location);
 
                 var result = mcp.CompileAssemblyFromFile(cp, "Content\\DisplayDownload.cs", "Content\\DownloadSettings.cs");
                 if (result.Errors.HasErrors)
