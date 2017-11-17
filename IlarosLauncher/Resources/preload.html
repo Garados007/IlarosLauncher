@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ilaros Launcher</title>
+    <style>
+        body{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .box {
+            position: absolute;
+            left: 50vw;
+            top: 50vh;
+            transform: translate(-50%, -50%);
+            width: 2em;
+            height: 2em;
+        }
+        .dot {
+            width: 2em;
+            height: 2em;
+            background-color: #40f9ff;
+            border-radius: 100%;
+            position: absolute;
+            animation-duration: 0.8s;
+            animation-iteration-count: infinite;
+            animation-name: dotanim;
+            animation-timing-function: ease;
+        }
+        @keyframes dotanim {
+            0% {
+                left: -10vw;
+            }
+            50% {
+                left: 10vw;
+            }
+            100% {
+                left: -10vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="dot">
+        </div>
+    </div>
+</body>
+</html>

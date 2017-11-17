@@ -15,6 +15,7 @@ namespace IlarosLauncher
         public Form1()
         {
             InitializeComponent();
+            webBrowser1.DocumentText = Properties.Resources.preload;
         }
     }
 }
