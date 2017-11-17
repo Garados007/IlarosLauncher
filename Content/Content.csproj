@@ -41,7 +41,12 @@
     <Compile Include="dummy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\" />
+    <Content Include="Source\License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
