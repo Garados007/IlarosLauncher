@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher.UpdaterCreat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher.Update", "Install\IlarosLauncher.Update\IlarosLauncher.Update.csproj", "{55FA30F1-9523-4BF9-A40A-D178D44C790A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Content\Content.csproj", "{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{55FA30F1-9523-4BF9-A40A-D178D44C790A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55FA30F1-9523-4BF9-A40A-D178D44C790A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55FA30F1-9523-4BF9-A40A-D178D44C790A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
