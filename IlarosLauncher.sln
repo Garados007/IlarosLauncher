@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher.Update", "In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Content\Content.csproj", "{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxLib.SystemDrawing", "External\MaxLib\MaxLib\MaxLib.SystemDrawing\MaxLib.SystemDrawing.csproj", "{604C9820-2353-4044-89CD-2CBB48806B3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxLib.WinForm", "External\MaxLib\MaxLib\MaxLib.WinForm\MaxLib.WinForm.csproj", "{1D50A2F2-AB1E-418C-A4D9-D6DB8751D062}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{604C9820-2353-4044-89CD-2CBB48806B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{604C9820-2353-4044-89CD-2CBB48806B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{604C9820-2353-4044-89CD-2CBB48806B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{604C9820-2353-4044-89CD-2CBB48806B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D50A2F2-AB1E-418C-A4D9-D6DB8751D062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D50A2F2-AB1E-418C-A4D9-D6DB8751D062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D50A2F2-AB1E-418C-A4D9-D6DB8751D062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D50A2F2-AB1E-418C-A4D9-D6DB8751D062}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +82,8 @@ Global
 		{E5A07F4E-9CAE-45B4-9347-895E4B521587} = {F283AB81-B39B-451A-8737-F65B93025073}
 		{B6F383E9-575B-42FB-B4F6-0225723CEA70} = {7FD5E5E0-E1BB-4EA8-8558-43DA2140E9CC}
 		{55FA30F1-9523-4BF9-A40A-D178D44C790A} = {7FD5E5E0-E1BB-4EA8-8558-43DA2140E9CC}
+		{604C9820-2353-4044-89CD-2CBB48806B3B} = {652B7A30-9CD8-4C24-8576-6052A7DBF03F}
+		{1D50A2F2-AB1E-418C-A4D9-D6DB8751D062} = {652B7A30-9CD8-4C24-8576-6052A7DBF03F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E7C3F3D9-B3CA-4854-A8EC-154CA8239196}
