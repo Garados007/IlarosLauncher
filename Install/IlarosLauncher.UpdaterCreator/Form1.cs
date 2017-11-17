@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.CodeDom.Compiler;
+using Microsoft.CSharp;
 
 namespace IlarosLauncher.UpdaterCreator
 {
@@ -59,7 +61,60 @@ namespace IlarosLauncher.UpdaterCreator
             }
             if (!d.Exists) d.Create();
 
+            if (!File.Exists("Content\\DisplayDownload.cs"))
+            {
+                MessageBox.Show("DisplayDownload.cs nicht gefunden!", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Directory.Exists("Temp")) Directory.CreateDirectory("Temp");
 
+            var sb = new StringBuilder();
+            sb.Append(@"namespace IlarosLauncher.Update
+{
+    public class DownloadSetting
+    {
+        public const string ServerType = """);
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0: sb.Append("ApachePHPV1"); break;
+            }
+            sb.Append(@""";
+
+        public const string ServerUrl = @""");
+            sb.Append(textBox1.Text);
+            sb.Append(@""";
+        }
+    }");
+            File.WriteAllText("Content\\DownloadSetting.cs", sb.ToString());
+
+            using (var mcp = new CSharpCodeProvider())
+            {
+                var cp = new CompilerParameters
+                {
+                    TempFiles = new TempFileCollection(Environment.CurrentDirectory + "\\Temp", false),
+                    IncludeDebugInformation = false,
+                    GenerateExecutable = true,
+                    OutputAssembly = new FileInfo(textBox2.Text + "\\IlarosLauncher.Update.exe").FullName,
+                };
+                cp.ReferencedAssemblies.Add(typeof(Form).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(Point).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(System.Deployment.Application.ApplicationDeployment).Assembly.Location);
+
+                var result = mcp.CompileAssemblyFromFile(cp, "Content\\DisplayDownload.cs", "Content\\DownloadSettings.cs");
+                if (result.Errors.HasErrors)
+                {
+                    sb.Clear();
+                    foreach (var err in result.Errors)
+                    {
+                        sb.Append(err);
+                        sb.AppendLine();
+                    }
+                    MessageBox.Show("Updater konnte nicht erstellt werden.\n\nFehlermeldungen:" + sb.ToString(),
+                        Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("Updater wurde erfolgreich erstellt.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
