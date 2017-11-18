@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using MaxLib.Net.Webserver;
 using Serv = MaxLib.Net.Webserver.Services;
+using IlarosLauncher.Services;
 
 namespace IlarosLauncher
 {
     static class Server
     {
         public static WebServer CurrentServer { get; private set; }
+
+        public static CompactService CompactService { get; private set; }
 
         public static void Start()
         {
@@ -36,6 +39,8 @@ namespace IlarosLauncher
             CurrentServer.AddWebService(new Serv.HttpSender());
             CurrentServer.AddWebService(new Serv.HttpDocumentFinder());
             //CurrentServer.AddWebService(new Serv.HttpDirectoryMapper(true));
+            //Other
+            CurrentServer.AddWebService(CompactService = new CompactService());
         }
     }
 }
