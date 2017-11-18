@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MaxLib.Net.Webserver;
 using Serv = MaxLib.Net.Webserver.Services;
 using IlarosLauncher.Services;
+using System.IO;
+using MaxLib.Data.IniFiles;
 
 namespace IlarosLauncher
 {
@@ -14,6 +16,8 @@ namespace IlarosLauncher
         public static WebServer CurrentServer { get; private set; }
 
         public static CompactService CompactService { get; private set; }
+
+        public static OptionsLoader ServerSettings { get; private set; }
 
         public static void Start()
         {
@@ -25,7 +29,7 @@ namespace IlarosLauncher
                     CurrentServer.Settings.Debug_WriteRequests = true;
 #endif
             CreateServices();
-
+            GetServerSettings();
             CurrentServer.Start();
         }
 
@@ -41,6 +45,23 @@ namespace IlarosLauncher
             //CurrentServer.AddWebService(new Serv.HttpDirectoryMapper(true));
             //Other
             CurrentServer.AddWebService(CompactService = new CompactService());
+        }
+
+        private static void GetServerSettings()
+        {
+            var entry = CompactService.FileSystem.FileTable.GetRootEntry("settings.ini");
+            var stream = entry.GetContent();
+            var bytes = new BinaryReader(stream, Encoding.UTF8, true).ReadBytes((int)stream.Length);
+            var text = Encoding.UTF8.GetString(bytes);
+            ServerSettings = new OptionsLoader(text);
+            stream.Dispose();
+
+            entry = CompactService.FileSystem.FileTable.GetRootEntry("mimetypes.ini");
+            stream = entry.GetContent();
+            bytes = new BinaryReader(stream, Encoding.UTF8, true).ReadBytes((int)stream.Length);
+            text = Encoding.UTF8.GetString(bytes);
+            CurrentServer.Settings.LoadSettingFromData(text);
+            stream.Dispose();
         }
     }
 }

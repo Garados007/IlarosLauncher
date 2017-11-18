@@ -18,6 +18,7 @@ mkdir "Web\ClientContent"
 copy /Y "Source\compacthelper.exe" "Web\Client\copacthelper.exe"
 copy /Y "Source\IlarosLauncher.exe" "Web\Client\IlarosLauncher.exe"
 copy /Y "Source\MaxLib.dll" "Web\Client\MaxLib.dll"
+copy /Y "Source\mimetypes.ini" "Web\ClientContent\mimetypes.ini"
 
 rem Create Version Infos
 cd Web
