@@ -45,7 +45,7 @@ namespace IlarosLauncher.UpdateClient.Update
                 ExecutionLimiter.WaitOne();
                 ExecutingStages.Add(stage);
                 StartExecution?.Invoke(this, stage);
-                stage.Execute();
+                stage.Execute(this);
                 ExecutingStages.Remove(stage);
                 EndExecution?.Invoke(this, stage);
                 ExecutionLimiter.Release();
@@ -75,7 +75,7 @@ namespace IlarosLauncher.UpdateClient.Update
 
         public abstract bool Finishes { get; }
 
-        public abstract void Execute();
+        public abstract void Execute(UpdateManager manager);
 
         public abstract bool CanStart(UpdateManager manager);
 
@@ -98,7 +98,7 @@ namespace IlarosLauncher.UpdateClient.Update
             Tasks = new List<T>();
         }
 
-        public override void Execute()
+        public override void Execute(UpdateManager manager)
         {
             if (Tasks.Count == 0)
             {
@@ -112,7 +112,7 @@ namespace IlarosLauncher.UpdateClient.Update
             foreach (var t in Tasks)
             {
                 OnNewTaskAdded(t);
-                (CurrentTask = t).Execute();
+                (CurrentTask = t).Execute(manager);
                 progress += step;
             }
             progress = 1;
@@ -171,7 +171,7 @@ namespace IlarosLauncher.UpdateClient.Update
             }
         }
 
-        public abstract void Execute();
+        public abstract void Execute(UpdateManager manager);
 
         public override string ToString()
         {
