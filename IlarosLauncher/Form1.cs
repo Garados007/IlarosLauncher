@@ -16,6 +16,20 @@ namespace IlarosLauncher
         {
             InitializeComponent();
             webBrowser1.DocumentText = Properties.Resources.preload;
+            this.Load += Form1_Load;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            AsyncLoad();
+        }
+
+        void AsyncLoad()
+        {
+            new Task(() =>
+            {
+                Server.Start();
+            }).Start();
         }
     }
 }
