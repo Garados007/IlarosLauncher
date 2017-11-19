@@ -210,6 +210,7 @@ namespace IlarosLauncher.UpdateClient
             manager.Stages.Add(new DownloadFile());
             manager.Stages.Add(new SetupLocalEnvironment());
             manager.Stages.Add(new CreateCompactFile());
+            manager.Stages.Add(new CloseWaiter());
 
             stageUpdateTimer.Enabled = true;
             await manager.Execute();

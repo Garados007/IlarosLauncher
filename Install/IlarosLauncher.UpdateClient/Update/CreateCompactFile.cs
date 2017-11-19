@@ -14,7 +14,7 @@ namespace IlarosLauncher.UpdateClient.Update
 
         public override bool CanStart(UpdateManager manager)
         {
-            return manager.GetStage<DownloadFile>().Finished;
+            return manager.GetStage<DownloadFile>().Finished && manager.GetStage<CloseWaiter>().Finished;
         }
 
         public CreateCompactFile()
