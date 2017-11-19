@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.clientVersion = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
@@ -58,29 +59,31 @@
             this.optDownloadUpdates = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.optSearchForUpdates = new System.Windows.Forms.CheckBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabInstall = new System.Windows.Forms.TabPage();
             this.taskList = new MaxLib.WinForms.RefreshingListBox();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.installFile = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.stageTask2 = new System.Windows.Forms.Label();
+            this.stageName2 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.downloadRate = new System.Windows.Forms.Label();
-            this.downloadFile = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.stageInfo1 = new System.Windows.Forms.Label();
+            this.stageTask1 = new System.Windows.Forms.Label();
+            this.stageName1 = new System.Windows.Forms.Label();
+            this.tabFinish = new System.Windows.Forms.TabPage();
             this.startLauncher = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.stageInfo2 = new System.Windows.Forms.Label();
+            this.stageUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.tablessControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tabInstall.SuspendLayout();
+            this.tabFinish.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -135,6 +138,7 @@
             this.btnInstall.TabIndex = 1;
             this.btnInstall.Text = "Installieren";
             this.btnInstall.UseVisualStyleBackColor = true;
+            this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
             // 
             // btnClose
             // 
@@ -151,8 +155,8 @@
             this.tablessControl1.Controls.Add(this.tabPage1);
             this.tablessControl1.Controls.Add(this.tabPage2);
             this.tablessControl1.Controls.Add(this.tabPage3);
-            this.tablessControl1.Controls.Add(this.tabPage4);
-            this.tablessControl1.Controls.Add(this.tabPage5);
+            this.tablessControl1.Controls.Add(this.tabInstall);
+            this.tablessControl1.Controls.Add(this.tabFinish);
             this.tablessControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tablessControl1.Location = new System.Drawing.Point(0, 100);
             this.tablessControl1.Name = "tablessControl1";
@@ -437,23 +441,24 @@
             this.optSearchForUpdates.Text = "automatisch nach Updates suchen";
             this.optSearchForUpdates.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // tabInstall
             // 
-            this.tabPage4.Controls.Add(this.taskList);
-            this.tabPage4.Controls.Add(this.progressBar2);
-            this.tabPage4.Controls.Add(this.installFile);
-            this.tabPage4.Controls.Add(this.label13);
-            this.tabPage4.Controls.Add(this.progressBar1);
-            this.tabPage4.Controls.Add(this.downloadRate);
-            this.tabPage4.Controls.Add(this.downloadFile);
-            this.tabPage4.Controls.Add(this.label9);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(766, 342);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Download";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabInstall.Controls.Add(this.stageInfo2);
+            this.tabInstall.Controls.Add(this.taskList);
+            this.tabInstall.Controls.Add(this.progressBar2);
+            this.tabInstall.Controls.Add(this.stageTask2);
+            this.tabInstall.Controls.Add(this.stageName2);
+            this.tabInstall.Controls.Add(this.progressBar1);
+            this.tabInstall.Controls.Add(this.stageInfo1);
+            this.tabInstall.Controls.Add(this.stageTask1);
+            this.tabInstall.Controls.Add(this.stageName1);
+            this.tabInstall.Location = new System.Drawing.Point(4, 22);
+            this.tabInstall.Name = "tabInstall";
+            this.tabInstall.Padding = new System.Windows.Forms.Padding(3);
+            this.tabInstall.Size = new System.Drawing.Size(766, 342);
+            this.tabInstall.TabIndex = 3;
+            this.tabInstall.Text = "Download";
+            this.tabInstall.UseVisualStyleBackColor = true;
             // 
             // taskList
             // 
@@ -471,77 +476,79 @@
             this.progressBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar2.Location = new System.Drawing.Point(6, 66);
+            this.progressBar2.Maximum = 10000;
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(751, 23);
             this.progressBar2.TabIndex = 6;
             // 
-            // installFile
+            // stageTask2
             // 
-            this.installFile.AutoSize = true;
-            this.installFile.Location = new System.Drawing.Point(87, 50);
-            this.installFile.Name = "installFile";
-            this.installFile.Size = new System.Drawing.Size(41, 13);
-            this.installFile.TabIndex = 5;
-            this.installFile.Text = "Datei...";
+            this.stageTask2.AutoSize = true;
+            this.stageTask2.Location = new System.Drawing.Point(87, 50);
+            this.stageTask2.Name = "stageTask2";
+            this.stageTask2.Size = new System.Drawing.Size(41, 13);
+            this.stageTask2.TabIndex = 5;
+            this.stageTask2.Text = "Datei...";
             // 
-            // label13
+            // stageName2
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 50);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(54, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Installiere:";
+            this.stageName2.AutoSize = true;
+            this.stageName2.Location = new System.Drawing.Point(8, 50);
+            this.stageName2.Name = "stageName2";
+            this.stageName2.Size = new System.Drawing.Size(54, 13);
+            this.stageName2.TabIndex = 4;
+            this.stageName2.Text = "Installiere:";
             // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(6, 19);
+            this.progressBar1.Maximum = 10000;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(751, 23);
             this.progressBar1.TabIndex = 3;
             // 
-            // downloadRate
+            // stageInfo1
             // 
-            this.downloadRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.downloadRate.AutoSize = true;
-            this.downloadRate.Location = new System.Drawing.Point(717, 3);
-            this.downloadRate.Name = "downloadRate";
-            this.downloadRate.Size = new System.Drawing.Size(40, 13);
-            this.downloadRate.TabIndex = 2;
-            this.downloadRate.Text = "0 KB/s";
-            this.downloadRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.stageInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.stageInfo1.AutoSize = true;
+            this.stageInfo1.Location = new System.Drawing.Point(717, 3);
+            this.stageInfo1.Name = "stageInfo1";
+            this.stageInfo1.Size = new System.Drawing.Size(40, 13);
+            this.stageInfo1.TabIndex = 2;
+            this.stageInfo1.Text = "0 KB/s";
+            this.stageInfo1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // downloadFile
+            // stageTask1
             // 
-            this.downloadFile.AutoSize = true;
-            this.downloadFile.Location = new System.Drawing.Point(87, 3);
-            this.downloadFile.Name = "downloadFile";
-            this.downloadFile.Size = new System.Drawing.Size(41, 13);
-            this.downloadFile.TabIndex = 1;
-            this.downloadFile.Text = "Datei...";
+            this.stageTask1.AutoSize = true;
+            this.stageTask1.Location = new System.Drawing.Point(87, 3);
+            this.stageTask1.Name = "stageTask1";
+            this.stageTask1.Size = new System.Drawing.Size(41, 13);
+            this.stageTask1.TabIndex = 1;
+            this.stageTask1.Text = "Datei...";
             // 
-            // label9
+            // stageName1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 3);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Download:";
+            this.stageName1.AutoSize = true;
+            this.stageName1.Location = new System.Drawing.Point(8, 3);
+            this.stageName1.Name = "stageName1";
+            this.stageName1.Size = new System.Drawing.Size(58, 13);
+            this.stageName1.TabIndex = 0;
+            this.stageName1.Text = "Download:";
             // 
-            // tabPage5
+            // tabFinish
             // 
-            this.tabPage5.Controls.Add(this.startLauncher);
-            this.tabPage5.Controls.Add(this.label14);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(766, 342);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Fertig";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabFinish.Controls.Add(this.startLauncher);
+            this.tabFinish.Controls.Add(this.label14);
+            this.tabFinish.Location = new System.Drawing.Point(4, 22);
+            this.tabFinish.Name = "tabFinish";
+            this.tabFinish.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFinish.Size = new System.Drawing.Size(766, 342);
+            this.tabFinish.TabIndex = 4;
+            this.tabFinish.Text = "Fertig";
+            this.tabFinish.UseVisualStyleBackColor = true;
             // 
             // startLauncher
             // 
@@ -596,6 +603,21 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // stageInfo2
+            // 
+            this.stageInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.stageInfo2.AutoSize = true;
+            this.stageInfo2.Location = new System.Drawing.Point(717, 50);
+            this.stageInfo2.Name = "stageInfo2";
+            this.stageInfo2.Size = new System.Drawing.Size(40, 13);
+            this.stageInfo2.TabIndex = 8;
+            this.stageInfo2.Text = "0 KB/s";
+            this.stageInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // stageUpdateTimer
+            // 
+            this.stageUpdateTimer.Tick += new System.EventHandler(this.stageUpdateTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -615,10 +637,10 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.tabInstall.ResumeLayout(false);
+            this.tabInstall.PerformLayout();
+            this.tabFinish.ResumeLayout(false);
+            this.tabFinish.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -657,22 +679,24 @@
         private System.Windows.Forms.CheckBox optDownloadUpdates;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox optSearchForUpdates;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabInstall;
         private MaxLib.WinForms.RefreshingListBox taskList;
         private System.Windows.Forms.ProgressBar progressBar2;
-        private System.Windows.Forms.Label installFile;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label stageTask2;
+        private System.Windows.Forms.Label stageName2;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label downloadRate;
-        private System.Windows.Forms.Label downloadFile;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label stageInfo1;
+        private System.Windows.Forms.Label stageTask1;
+        private System.Windows.Forms.Label stageName1;
+        private System.Windows.Forms.TabPage tabFinish;
         private System.Windows.Forms.CheckBox startLauncher;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Label stageInfo2;
+        private System.Windows.Forms.Timer stageUpdateTimer;
     }
 }
 

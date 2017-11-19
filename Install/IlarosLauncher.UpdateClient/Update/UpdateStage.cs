@@ -1,6 +1,7 @@
 ﻿using MaxLib.Collections;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -70,11 +71,20 @@ namespace IlarosLauncher.UpdateClient.Update
 
         public abstract float TaskProgress { get; }
 
+        public abstract string TaskInfo { get; }
+
         public abstract bool Finishes { get; }
 
         public abstract void Execute();
 
         public abstract bool CanStart(UpdateManager manager);
+
+        public event Action<UpdateTask> NewTaskAdded;
+
+        protected void OnNewTaskAdded(UpdateTask task)
+        {
+            NewTaskAdded?.Invoke(task);
+        }
     }
 
     abstract class UpdateStage<T> : UpdateStage where T: UpdateTask
@@ -101,6 +111,7 @@ namespace IlarosLauncher.UpdateClient.Update
             step = 1f / Tasks.Count;
             foreach (var t in Tasks)
             {
+                OnNewTaskAdded(t);
                 (CurrentTask = t).Execute();
                 progress += step;
             }
@@ -111,6 +122,8 @@ namespace IlarosLauncher.UpdateClient.Update
 
         public override string TaskName => CurrentTask?.Name;
 
+        public override string TaskInfo => CurrentTask?.Info;
+
         float progress = 0;
         float step = 0;
         public override float TaskProgress => progress + step * (CurrentTask?.Progress ?? 0);
@@ -118,10 +131,55 @@ namespace IlarosLauncher.UpdateClient.Update
 
     abstract class UpdateTask
     {
-        public string Name { get; protected set; }
+        public event EventHandler ValueChanged;
+        protected void OnValueChanged(EventArgs e = null)
+        {
+            ValueChanged?.Invoke(this, e ?? EventArgs.Empty);
+        }
 
-        public float Progress { get; protected set; }
+
+        string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnValueChanged();
+            }
+        }
+
+        float progress;
+        public float Progress
+        {
+            get => progress;
+            set
+            {
+                progress = value;
+                OnValueChanged();
+            }
+        }
+
+        string info;
+        public string Info
+        {
+            get => info;
+            set
+            {
+                info = value;
+                OnValueChanged();
+            }
+        }
 
         public abstract void Execute();
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append(Name ?? "unbenannte Aufgabe");
+            sb.AppendFormat(" ({#0.00}%)", Progress * 100);
+            if (Info != null) sb.AppendFormat(" ({0})", Info);
+            return sb.ToString();
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using IlarosLauncher.UpdateClient.Update;
 
 namespace IlarosLauncher.UpdateClient
 {
@@ -105,6 +106,88 @@ namespace IlarosLauncher.UpdateClient
         private void optStartLauncher_CheckedChanged(object sender, EventArgs e)
         {
             startLauncher.Checked = optStartLauncher.Checked;
+        }
+
+        UpdateStage stage1, stage2;
+
+        void updateStageInfo(UpdateStage stage, Label stageTask, Label stageInfo, ProgressBar progress)
+        {
+            if (stage != null)
+            {
+                stageTask.Text = stage.TaskName;
+                progress.Value = (int)(10000 * stage.TaskProgress);
+                var r = stageInfo.Right;
+                stageInfo.Text = stage.TaskInfo;
+                stageInfo.Left = r - stageInfo.Width;
+            }
+            else
+            {
+                stageTask.Text = null;
+                progress.Value = 0;
+                var r = stageInfo.Right;
+                stageInfo.Text = null;
+                stageInfo.Left = r - stageInfo.Width;
+            }
+        }
+
+        private void stageUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            updateStageInfo(stage1, stageTask1, stageInfo1, progressBar1);
+            updateStageInfo(stage2, stageTask2, stageInfo2, progressBar2);
+        }
+
+        private async void btnInstall_Click(object sender, EventArgs e)
+        {
+            tablessControl1.SelectedTab = tabInstall;
+            var manager = new UpdateManager(2);
+            manager.StartExecution += (s, stage) =>
+            {
+                if (stage1 == null)
+                {
+                    stage1 = stage;
+                    stageName1.Text = stage.GlobalTaskVerb;
+                }
+                else
+                {
+                    stage2 = stage;
+                    stageName2.Text = stage.GlobalTaskVerb;
+                }
+                stage.NewTaskAdded += Stage_NewTaskAdded;
+            };
+            manager.EndExecution += (s, stage) =>
+            {
+                if (stage1 == stage)
+                {
+                    stage1 = null;
+                    stageName1.Text = null;
+                }
+                else
+                {
+                    stage2 = null;
+                    stageName2.Text = null;
+                }
+                stage.NewTaskAdded -= Stage_NewTaskAdded;
+            };
+
+            stageUpdateTimer.Enabled = true;
+            await manager.Execute();
+            stageUpdateTimer.Enabled = false;
+            stageUpdateTimer_Tick(sender, e);
+            manager.Dispose();
+            tablessControl1.SelectedTab = tabFinish;
+        }
+
+        Dictionary<UpdateTask, int> indexTable = new Dictionary<UpdateTask, int>();
+
+        private void Stage_NewTaskAdded(UpdateTask task)
+        {
+            lock (indexTable)
+            {
+                taskList.Items.Add(task);
+                taskList.TopIndex = taskList.Items.Count - 1;
+                indexTable.Add(task, indexTable.Count);
+                task.ValueChanged += (sender, e) => taskList.RefreshItem(indexTable[sender as UpdateTask]);
+            }
         }
     }
 }
