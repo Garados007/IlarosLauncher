@@ -181,7 +181,7 @@ namespace IlarosLauncher.UpdateClient.Update
         {
             var sb = new StringBuilder();
             sb.Append(Name ?? "unbenannte Aufgabe");
-            sb.AppendFormat(" ({#0.00}%)", Progress * 100);
+            sb.AppendFormat(" ({0:#0.00}%)", Progress * 100);
             if (Info != null) sb.AppendFormat(" ({0})", Info);
             return sb.ToString();
         }

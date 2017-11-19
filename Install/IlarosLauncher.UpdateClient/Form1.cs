@@ -31,8 +31,7 @@ namespace IlarosLauncher.UpdateClient
         {
             if (!DownloadSettings.LoadFromIni())
             {
-                MessageBox.Show("Die Einstellungskonfigurationen konnten nicht gefunden werden. Bitte starten Sie den Installer erneut!"+
-                    "\r\n"+Environment.CurrentDirectory,
+                MessageBox.Show("Die Einstellungskonfigurationen konnten nicht gefunden werden. Bitte starten Sie den Installer erneut!",
                     Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
                 return;
@@ -157,6 +156,11 @@ namespace IlarosLauncher.UpdateClient
             updateStageInfo(stage2, stageTask2, stageInfo2, progressBar2);
         }
 
+        void Invoke(Action action)
+        {
+            base.Invoke(action);
+        }
+
         private async void btnInstall_Click(object sender, EventArgs e)
         {
             tablessControl1.SelectedTab = tabInstall;
@@ -178,12 +182,12 @@ namespace IlarosLauncher.UpdateClient
                 if (stage1 == null)
                 {
                     stage1 = stage;
-                    stageName1.Text = stage.GlobalTaskVerb;
+                    Invoke(() => stageName1.Text = stage.GlobalTaskVerb);
                 }
                 else
                 {
                     stage2 = stage;
-                    stageName2.Text = stage.GlobalTaskVerb;
+                    Invoke(() => stageName2.Text = stage.GlobalTaskVerb);
                 }
                 stage.NewTaskAdded += Stage_NewTaskAdded;
             };
@@ -192,14 +196,14 @@ namespace IlarosLauncher.UpdateClient
                 if (stage1 == stage)
                 {
                     stage1 = null;
-                    stageName1.Text = null;
+                    Invoke(() => stageName1.Text = null);
                 }
                 else
                 {
                     stage2 = null;
-                    stageName2.Text = null;
+                    Invoke(() => stageName2.Text = null);
                 }
-                stage.NewTaskAdded -= Stage_NewTaskAdded;
+                Invoke(() => stage.NewTaskAdded -= Stage_NewTaskAdded);
             };
 
             manager.Stages.Add(new FetchDownloadList());
@@ -210,7 +214,12 @@ namespace IlarosLauncher.UpdateClient
             stageUpdateTimer.Enabled = false;
             stageUpdateTimer_Tick(sender, e);
             manager.Dispose();
+#if DEBUG
+            if (!System.Diagnostics.Debugger.IsAttached) tablessControl1.SelectedTab = tabFinish;
+            else SetButtonStates(false, true, false, true);
+#else
             tablessControl1.SelectedTab = tabFinish;
+#endif
         }
 
         Dictionary<UpdateTask, int> indexTable = new Dictionary<UpdateTask, int>();
@@ -219,10 +228,13 @@ namespace IlarosLauncher.UpdateClient
         {
             lock (indexTable)
             {
-                taskList.Items.Add(task);
-                taskList.TopIndex = taskList.Items.Count - 1;
-                indexTable.Add(task, indexTable.Count);
-                task.ValueChanged += (sender, e) => taskList.RefreshItem(indexTable[sender as UpdateTask]);
+                Invoke(() =>
+                {
+                    taskList.Items.Add(task);
+                    taskList.TopIndex = taskList.Items.Count - 1;
+                    indexTable.Add(task, indexTable.Count);
+                    task.ValueChanged += (sender, e) => Invoke(() => taskList.RefreshItem(indexTable[sender as UpdateTask]));
+                });
             }
         }
     }

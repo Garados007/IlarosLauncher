@@ -45,5 +45,9 @@ switch ($_GET["mode"]) {
 
     return;
 
+  case "changes":
+    echo '{"version":"1.0.0", "date": 2, "modules": [], "ressources": [{"path":"Client/IlarosLauncher.exe.version","hash":"abc","name":"IlarosLauncher.exe.version"}], "deleted": []}';
+	return;
+
   default: return; //unsupported
 }

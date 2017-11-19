@@ -35,6 +35,7 @@ namespace IlarosLauncher.UpdateClient.Update
             {
                 var json = GetFileList();
                 var dft = manager.GetStage<DownloadFile>().Tasks;
+                Progress = 0.4f;
                 foreach (JsonObject entry in json["modules"].Element.Array)
                 {
                     dft.Add(new DownloadFile.DownloadFileTask(
@@ -42,6 +43,15 @@ namespace IlarosLauncher.UpdateClient.Update
                         entry["name"].Value.Get<string>(),
                         entry["version"].Value.Get<string>()));
                 }
+                Progress = 0.7f;
+                foreach (JsonObject entry in json["ressources"].Element.Array)
+                {
+                    dft.Add(new DownloadFile.DownloadFileTask(
+                        entry["path"].Value.Get<string>(),
+                        entry["name"].Value.Get<string>(),
+                        entry["hash"].Value.Get<string>()));
+                }
+                Progress = 1;
             }
 
             SmartJson GetFileList()
