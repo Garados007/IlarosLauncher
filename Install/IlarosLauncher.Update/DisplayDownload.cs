@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO;
 using Microsoft.Win32;
 
 namespace IlarosLauncher.Update
@@ -7,14 +8,19 @@ namespace IlarosLauncher.Update
     public class DisplayDownload : Form
     {
         private ProgressBar progressBar1;
+#if DEBUG
+        string tempPath = System.Diagnostics.Debugger.IsAttached ? Environment.CurrentDirectory : "%TEMP%\\IlarosLauncher";
+#else
         string tempPath = "%TEMP%\\IlarosLauncher";
+#endif
 
         public DisplayDownload()
         {
             getTempPath();
             if (!Application.StartupPath.StartsWith(tempPath))
             {
-                System.IO.File.Copy(Application.ExecutablePath, tempPath + "\\IlarosLauncher.Update.exe");
+                if (!Directory.Exists(tempPath)) Directory.CreateDirectory(tempPath);
+                File.Copy(Application.ExecutablePath, tempPath + "\\IlarosLauncher.Update.exe");
                 System.Diagnostics.Process.Start(tempPath + "\\IlarosLauncher.Update.exe");
                 return;
             }
@@ -33,17 +39,28 @@ namespace IlarosLauncher.Update
 
         private void DisplayDownload_Load(object sender, EventArgs e)
         {
-            var wc = new System.Net.WebClient();
-            wc.DownloadProgressChanged += (s, ev) =>
+            try
             {
-                progressBar1.Value = ev.ProgressPercentage;
-            };
-            wc.DownloadFileCompleted += (s, ev) =>
+                var wc = new System.Net.WebClient();
+                wc.DownloadProgressChanged += (s, ev) =>
+                {
+                    progressBar1.Value = ev.ProgressPercentage;
+                };
+                wc.DownloadFileCompleted += (s, ev) =>
+                {
+                    File.WriteAllText(tempPath + "\\config.ini", "ServerType=\"" + DownloadSetting.ServerType +
+                        "\"\r\nServerUrl=\"" + DownloadSetting.ServerUrl + "\"\r\n");
+                    System.Diagnostics.Process.Start(tempPath + "\\IlarosLauncher.UpdateClient.exe");
+                };
+                wc.DownloadFileAsync(new Uri(DownloadSetting.ServerUrl + "?mode=updater"),
+                    tempPath + "\\IlarosLauncher.UpdateClient.exe");
+            }
+            catch
             {
-                System.Diagnostics.Process.Start(tempPath+ "\\IlarosLauncher.UpdateClient.exe");
-            };
-            wc.DownloadFileAsync(new Uri(DownloadSetting.ServerUrl + "?mode=updater"), 
-                tempPath + "\\IlarosLauncher.UpdateClient.exe");
+                MessageBox.Show("Der Installer konnte nicht heruntergeladen werden. Bitte stellen Sie eine Verbindung mit dem Internet " +
+                    "wieder her und starten diesen Installer erneut.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
 
         private void InitializeComponent()

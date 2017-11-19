@@ -24,6 +24,26 @@ namespace IlarosLauncher.UpdateClient
                 licensebox.Text = File.ReadAllText("License.txt", Encoding.UTF8);
             else licensebox.Text = "no license file found";
             SetButtonStates(false, false, false, true);
+            this.Load += Form1_Load;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (!DownloadSettings.LoadFromIni())
+            {
+                MessageBox.Show("Die Einstellungskonfigurationen konnten nicht gefunden werden. Bitte starten Sie den Installer erneut!",
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+                return;
+            }
+            if (!DownloadSettings.CanConnect())
+            {
+                MessageBox.Show("Es konnte keine Verbindung mit dem Updateserver hergestellt werden. Dies kann an folgenden Problemen liegen:\n" +
+                    "\n1. Sie haben aktuell keine Internetverbindung\n2. Der Updateserver ist offline\n3. Diese Updatesoftware ist veraltet.",
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+                return;
+            }
         }
 
         void SetButtonStates(bool back, bool forward, bool install, bool close)
@@ -139,6 +159,18 @@ namespace IlarosLauncher.UpdateClient
         private async void btnInstall_Click(object sender, EventArgs e)
         {
             tablessControl1.SelectedTab = tabInstall;
+            DownloadSettings.Current = new DownloadSettings()
+            {
+                CreateDesktopLink = optCreateDesktopLink.Checked,
+                DownloadBackgrounds = optDownloadImagesNow.Checked,
+                LauncherPath = targetDirectory.Text,
+                LSDownloadBackgrounds = optDownloadNewImages.Checked,
+                LSDownloadUpdates = optDownloadUpdates.Checked,
+                LSSearchUpdates = optSearchForUpdates.Checked,
+                UseAppData = useAppdata.Checked,
+                UseRegistry = useRegistry.Checked,
+                UseTemp = useTemp.Checked,
+            };
             var manager = new UpdateManager(2);
             manager.StartExecution += (s, stage) =>
             {
