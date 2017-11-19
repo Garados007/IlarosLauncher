@@ -41,6 +41,9 @@
     <Compile Include="dummy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Source\ilweb.php">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Source\License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

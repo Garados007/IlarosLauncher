@@ -627,6 +627,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ilaros Launcher - Update Client";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

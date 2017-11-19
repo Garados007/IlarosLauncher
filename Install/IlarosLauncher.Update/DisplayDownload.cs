@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.Win32;
+using System.IO.Compression;
+using System.Diagnostics;
 
 namespace IlarosLauncher.Update
 {
@@ -9,7 +11,7 @@ namespace IlarosLauncher.Update
     {
         private ProgressBar progressBar1;
 #if DEBUG
-        string tempPath = System.Diagnostics.Debugger.IsAttached ? Environment.CurrentDirectory : "%TEMP%\\IlarosLauncher";
+        string tempPath = Debugger.IsAttached ? Environment.CurrentDirectory : "%TEMP%\\IlarosLauncher";
 #else
         string tempPath = "%TEMP%\\IlarosLauncher";
 #endif
@@ -17,11 +19,17 @@ namespace IlarosLauncher.Update
         public DisplayDownload()
         {
             getTempPath();
+            tempPath = Environment.ExpandEnvironmentVariables(tempPath);
             if (!Application.StartupPath.StartsWith(tempPath))
             {
                 if (!Directory.Exists(tempPath)) Directory.CreateDirectory(tempPath);
-                File.Copy(Application.ExecutablePath, tempPath + "\\IlarosLauncher.Update.exe");
-                System.Diagnostics.Process.Start(tempPath + "\\IlarosLauncher.Update.exe");
+                File.Copy(Application.ExecutablePath, tempPath + "\\IlarosLauncher.Update.exe", true);
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = tempPath + "\\IlarosLauncher.Update.exe",
+                    WorkingDirectory = tempPath,
+                });
+                Close();
                 return;
             }
             InitializeComponent();
@@ -41,6 +49,10 @@ namespace IlarosLauncher.Update
         {
             try
             {
+                File.WriteAllText(tempPath + "\\config.ini", "ServerType=\"" + DownloadSetting.ServerType +
+                    "\"\r\nServerUrl=\"" + DownloadSetting.ServerUrl + "\"\r\n");
+                if (!File.Exists(tempPath + "\\config.ini"))
+                    MessageBox.Show("Datei wurde noch nicht erstellt...");
                 var wc = new System.Net.WebClient();
                 wc.DownloadProgressChanged += (s, ev) =>
                 {
@@ -48,12 +60,18 @@ namespace IlarosLauncher.Update
                 };
                 wc.DownloadFileCompleted += (s, ev) =>
                 {
-                    File.WriteAllText(tempPath + "\\config.ini", "ServerType=\"" + DownloadSetting.ServerType +
-                        "\"\r\nServerUrl=\"" + DownloadSetting.ServerUrl + "\"\r\n");
-                    System.Diagnostics.Process.Start(tempPath + "\\IlarosLauncher.UpdateClient.exe");
+                    using (var archive = ZipFile.OpenRead(tempPath + "\\installer.zip"))
+                        archive.ExtractToDirectory(tempPath, true);
+                    File.Delete(tempPath + "\\installer.zip");
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = tempPath + "\\IlarosLauncher.UpdateClient.exe",
+                        WorkingDirectory = tempPath
+                    });
+                    Close();
                 };
-                wc.DownloadFileAsync(new Uri(DownloadSetting.ServerUrl + "?mode=updater"),
-                    tempPath + "\\IlarosLauncher.UpdateClient.exe");
+                wc.DownloadFileAsync(new Uri(DownloadSetting.ServerUrl + "?mode=installer"),
+                    tempPath + "\\installer.zip");
             }
             catch
             {
@@ -90,6 +108,7 @@ namespace IlarosLauncher.Update
             MinimizeBox = false;
             Name = "DisplayDownload";
             Text = "Ilaros Launcher - Updater";
+            StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);
 
         }
@@ -100,6 +119,28 @@ namespace IlarosLauncher.Update
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DisplayDownload());
+        }
+    }
+
+    public static class ZipArchiveExtensions
+    {
+        public static void ExtractToDirectory(this ZipArchive archive, string destinationDirectoryName, bool overwrite)
+        {
+            if (!overwrite)
+            {
+                archive.ExtractToDirectory(destinationDirectoryName);
+                return;
+            }
+            foreach (ZipArchiveEntry file in archive.Entries)
+            {
+                string completeFileName = Path.Combine(destinationDirectoryName, file.FullName);
+                if (file.Name == "")
+                {// Assuming Empty for Directory
+                    Directory.CreateDirectory(Path.GetDirectoryName(completeFileName));
+                    continue;
+                }
+                file.ExtractToFile(completeFileName, true);
+            }
         }
     }
 }

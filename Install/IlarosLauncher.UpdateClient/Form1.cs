@@ -31,7 +31,8 @@ namespace IlarosLauncher.UpdateClient
         {
             if (!DownloadSettings.LoadFromIni())
             {
-                MessageBox.Show("Die Einstellungskonfigurationen konnten nicht gefunden werden. Bitte starten Sie den Installer erneut!",
+                MessageBox.Show("Die Einstellungskonfigurationen konnten nicht gefunden werden. Bitte starten Sie den Installer erneut!"+
+                    "\r\n"+Environment.CurrentDirectory,
                     Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
                 return;
