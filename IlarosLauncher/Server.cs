@@ -45,6 +45,7 @@ namespace IlarosLauncher
             //CurrentServer.AddWebService(new Serv.HttpDirectoryMapper(true));
             //Other
             CurrentServer.AddWebService(CompactService = new CompactService());
+            CurrentServer.AddWebService(new ServerScriptService());
         }
 
         private static void GetServerSettings()

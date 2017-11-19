@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Services\CompactService.cs" />
+    <Compile Include="Services\ServerScriptService.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,6 +83,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\External\MaxLib\MaxLib\MaxLib.Js\MaxLib.Js.csproj">
+      <Project>{c1595273-71ff-4aad-857b-a9f6ebf1e096}</Project>
+      <Name>MaxLib.Js</Name>
+    </ProjectReference>
     <ProjectReference Include="..\External\MaxLib\MaxLib\MaxLib\MaxLib.csproj">
       <Project>{d53be740-579b-412d-9fa8-3505a12e958d}</Project>
       <Name>MaxLib</Name>
