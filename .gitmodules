@@ -1,0 +1,3 @@
+[submodule "maxlib"]
+  path = External/MaxLib/MaxLib
+  url = https://github.com/Garados007/MaxLib.git
