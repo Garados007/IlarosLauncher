@@ -123,7 +123,7 @@ namespace compacthelper
             try { fs = new FileStream(target, FileMode.OpenOrCreate, FileAccess.ReadWrite); }
             catch
             {
-                Console.Error.WriteLine("Zieldatei geöffnet werden.");
+                Console.Error.WriteLine("Zieldatei konnte geöffnet werden.");
                 return false;
             }
             try { compact = new CompactSystem(fs); }

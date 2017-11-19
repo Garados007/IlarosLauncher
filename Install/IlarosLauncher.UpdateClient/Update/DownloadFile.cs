@@ -45,7 +45,10 @@ namespace IlarosLauncher.UpdateClient.Update
                     {
                         Progress = (float)e.BytesReceived / e.TotalBytesToReceive;
                     };
-                    var target = Environment.CurrentDirectory + "\\Downloads\\" + Path;
+
+                    var ds = DownloadSettings.Current;
+                    var target = ds.UseTemp ? Environment.ExpandEnvironmentVariables("%TEMP%\\IlarosLauncher\\Downloads\\" + Path) :
+                        ds.LauncherPath + "\\Temp\\Downloads\\" + Path;
                     var fi = new FileInfo(target);
                     if (!fi.Directory.Exists) fi.Directory.Create();
                     wc.DownloadFileAsync(new Uri(DownloadSettings.ServerUrl + "/../" + Path), target);
