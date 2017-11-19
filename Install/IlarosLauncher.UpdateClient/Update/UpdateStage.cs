@@ -73,7 +73,7 @@ namespace IlarosLauncher.UpdateClient.Update
 
         public abstract string TaskInfo { get; }
 
-        public abstract bool Finishes { get; }
+        public abstract bool Finished { get; }
 
         public abstract void Execute(UpdateManager manager);
 
@@ -92,6 +92,9 @@ namespace IlarosLauncher.UpdateClient.Update
         public List<T> Tasks { get; private set; }
 
         public T CurrentTask { get; private set; }
+
+        bool finished = false;
+        public override bool Finished => finished;
 
         public UpdateStage()
         {
@@ -118,6 +121,7 @@ namespace IlarosLauncher.UpdateClient.Update
             progress = 1;
             step = 0;
             CurrentTask = null;
+            finished = true;
         }
 
         public override string TaskName => CurrentTask?.Name;

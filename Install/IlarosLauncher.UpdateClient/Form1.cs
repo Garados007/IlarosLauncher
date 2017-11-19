@@ -202,6 +202,9 @@ namespace IlarosLauncher.UpdateClient
                 stage.NewTaskAdded -= Stage_NewTaskAdded;
             };
 
+            manager.Stages.Add(new FetchDownloadList());
+            manager.Stages.Add(new DownloadFile());
+
             stageUpdateTimer.Enabled = true;
             await manager.Execute();
             stageUpdateTimer.Enabled = false;
