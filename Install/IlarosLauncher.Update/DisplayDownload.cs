@@ -66,7 +66,8 @@ namespace IlarosLauncher.Update
                     Process.Start(new ProcessStartInfo()
                     {
                         FileName = tempPath + "\\IlarosLauncher.UpdateClient.exe",
-                        WorkingDirectory = tempPath
+                        WorkingDirectory = tempPath,
+                        Verb = "runas"
                     });
                     Close();
                 };

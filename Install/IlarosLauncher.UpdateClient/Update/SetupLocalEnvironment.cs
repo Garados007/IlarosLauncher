@@ -16,6 +16,11 @@ namespace IlarosLauncher.UpdateClient.Update
             return true;
         }
 
+        public SetupLocalEnvironment()
+        {
+            Tasks.Add(new SetupEnvironmentTask());
+        }
+
         public class SetupEnvironmentTask : UpdateTask
         {
             public SetupEnvironmentTask()
