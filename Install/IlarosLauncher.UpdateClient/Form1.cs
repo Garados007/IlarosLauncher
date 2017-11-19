@@ -208,6 +208,7 @@ namespace IlarosLauncher.UpdateClient
 
             manager.Stages.Add(new FetchDownloadList());
             manager.Stages.Add(new DownloadFile());
+            manager.Stages.Add(new SetupLocalEnvironment());
 
             stageUpdateTimer.Enabled = true;
             await manager.Execute();
