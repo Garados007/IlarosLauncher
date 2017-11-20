@@ -19,6 +19,7 @@ namespace IlarosLauncher.UpdaterCreator
         public Form1()
         {
             InitializeComponent();
+            textBox2.Text = Environment.CurrentDirectory;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -85,7 +86,7 @@ namespace IlarosLauncher.UpdaterCreator
             sb.Append(@""";
         }
     }");
-            File.WriteAllText("Content\\DownloadSetting.cs", sb.ToString());
+            File.WriteAllText("Content\\DownloadSettings.cs", sb.ToString());
 
             using (var mcp = new CSharpCodeProvider())
             {
@@ -94,11 +95,15 @@ namespace IlarosLauncher.UpdaterCreator
                     TempFiles = new TempFileCollection(Environment.CurrentDirectory + "\\Temp", false),
                     IncludeDebugInformation = false,
                     GenerateExecutable = true,
+                    CompilerOptions = "/target:winexe",
                     OutputAssembly = new FileInfo(textBox2.Text + "\\IlarosLauncher.Update.exe").FullName,
                 };
                 cp.ReferencedAssemblies.Add(typeof(Form).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(Point).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(System.Deployment.Application.ApplicationDeployment).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(Component).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(System.IO.Compression.ZipFile).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(System.IO.Compression.ZipArchive).Assembly.Location);
 
                 var result = mcp.CompileAssemblyFromFile(cp, "Content\\DisplayDownload.cs", "Content\\DownloadSettings.cs");
                 if (result.Errors.HasErrors)
