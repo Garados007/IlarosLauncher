@@ -9,7 +9,7 @@ namespace IlarosLauncher.UpdateClient.Update
 {
     class FileSearcher : UpdateStage<FileSearcher.SearchTask>
     {
-        public override string GlobalTaskVerb => throw new NotImplementedException();
+        public override string GlobalTaskVerb => "Suche:";
 
         public override bool CanStart(UpdateManager manager)
         {
