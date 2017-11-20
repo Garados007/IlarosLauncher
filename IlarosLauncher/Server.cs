@@ -22,7 +22,7 @@ namespace IlarosLauncher
         public static void Start()
         {
             CurrentServer = new WebServer(new WebServerSettings(45789, 5000));
-
+            CurrentServer.Settings.IPFilter = System.Net.IPAddress.Loopback;
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
                 CurrentServer.Settings.Debug_LogConnections =
@@ -31,6 +31,12 @@ namespace IlarosLauncher
             CreateServices();
             GetServerSettings();
             CurrentServer.Start();
+        }
+
+        public static void Close()
+        {
+            CurrentServer.Stop();
+            CompactService.Dispose();
         }
 
         private static void CreateServices()
