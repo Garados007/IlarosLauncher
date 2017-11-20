@@ -84,38 +84,38 @@ namespace IlarosLauncher.Update
 
         private void InitializeComponent()
         {
-            progressBar1 = new ProgressBar();
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayDownload));
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.SuspendLayout();
             // 
             // progressBar1
             // 
-            progressBar1.Dock = DockStyle.Fill;
-            progressBar1.Location = new System.Drawing.Point(0, 0);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = 100;
-            progressBar1.Size = new System.Drawing.Size(275, 29);
-            progressBar1.TabIndex = 0;
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressBar1.Location = new System.Drawing.Point(0, 0);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(275, 29);
+            this.progressBar1.TabIndex = 0;
             // 
             // DisplayDownload
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(275, 29);
-            ControlBox = false;
-            Controls.Add(progressBar1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "DisplayDownload";
-            Text = "Ilaros Launcher - Updater";
-            StartPosition = FormStartPosition.CenterScreen;
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(275, 29);
+            this.ControlBox = false;
+            this.Controls.Add(this.progressBar1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "DisplayDownload";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Ilaros Launcher - Updater";
+            this.ResumeLayout(false);
 
         }
 
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

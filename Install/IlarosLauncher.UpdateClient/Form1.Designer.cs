@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.clientVersion = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
@@ -60,6 +60,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.optSearchForUpdates = new System.Windows.Forms.CheckBox();
             this.tabInstall = new System.Windows.Forms.TabPage();
+            this.stageInfo2 = new System.Windows.Forms.Label();
             this.taskList = new MaxLib.WinForms.RefreshingListBox();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.stageTask2 = new System.Windows.Forms.Label();
@@ -75,8 +76,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.stageInfo2 = new System.Windows.Forms.Label();
-            this.stageUpdateTimer = new System.Windows.Forms.Timer(this.components);
+            this.stageUpdateTimer = new System.Windows.Forms.Timer();
             this.panel1.SuspendLayout();
             this.tablessControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -460,6 +460,17 @@
             this.tabInstall.Text = "Download";
             this.tabInstall.UseVisualStyleBackColor = true;
             // 
+            // stageInfo2
+            // 
+            this.stageInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.stageInfo2.AutoSize = true;
+            this.stageInfo2.Location = new System.Drawing.Point(717, 50);
+            this.stageInfo2.Name = "stageInfo2";
+            this.stageInfo2.Size = new System.Drawing.Size(40, 13);
+            this.stageInfo2.TabIndex = 8;
+            this.stageInfo2.Text = "0 KB/s";
+            this.stageInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // taskList
             // 
             this.taskList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -588,7 +599,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(100, 0);
             this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(5);
+            this.label6.Padding = new System.Windows.Forms.Padding(15, 5, 5, 5);
             this.label6.Size = new System.Drawing.Size(674, 100);
             this.label6.TabIndex = 1;
             this.label6.Text = "Ilaros Launcher";
@@ -597,22 +608,13 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox1.Image = global::IlarosLauncher.UpdateClient.Properties.Resources.wow_icon_transparent;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // stageInfo2
-            // 
-            this.stageInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.stageInfo2.AutoSize = true;
-            this.stageInfo2.Location = new System.Drawing.Point(717, 50);
-            this.stageInfo2.Name = "stageInfo2";
-            this.stageInfo2.Size = new System.Drawing.Size(40, 13);
-            this.stageInfo2.TabIndex = 8;
-            this.stageInfo2.Text = "0 KB/s";
-            this.stageInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // stageUpdateTimer
             // 
@@ -626,6 +628,7 @@
             this.Controls.Add(this.tablessControl1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ilaros Launcher - Update Client";

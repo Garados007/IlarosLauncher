@@ -23,6 +23,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{7FD5E5E0-E1BB-4EA8-8558-43DA2140E9CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher.UpdaterCreator", "Install\IlarosLauncher.UpdaterCreator\IlarosLauncher.UpdaterCreator.csproj", "{B6F383E9-575B-42FB-B4F6-0225723CEA70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{55FA30F1-9523-4BF9-A40A-D178D44C790A} = {55FA30F1-9523-4BF9-A40A-D178D44C790A}
+		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0} = {9DA40BF7-F4D7-437C-96A9-8620A2C130D0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher.Update", "Install\IlarosLauncher.Update\IlarosLauncher.Update.csproj", "{55FA30F1-9523-4BF9-A40A-D178D44C790A}"
 EndProject

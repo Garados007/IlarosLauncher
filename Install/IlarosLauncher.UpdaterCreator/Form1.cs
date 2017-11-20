@@ -95,9 +95,10 @@ namespace IlarosLauncher.UpdaterCreator
                     TempFiles = new TempFileCollection(Environment.CurrentDirectory + "\\Temp", false),
                     IncludeDebugInformation = false,
                     GenerateExecutable = true,
-                    CompilerOptions = "/target:winexe",
+                    CompilerOptions = "/target:winexe /win32icon:Content\\wow-icon-transparent.ico",
                     OutputAssembly = new FileInfo(textBox2.Text + "\\IlarosLauncher.Update.exe").FullName,
                 };
+                cp.EmbeddedResources.Add("Content\\IlarosLauncher.Update.DisplayDownload.resources");
                 cp.ReferencedAssemblies.Add(typeof(Form).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(Point).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(System.Deployment.Application.ApplicationDeployment).Assembly.Location);
