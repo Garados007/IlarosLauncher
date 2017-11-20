@@ -11,7 +11,7 @@ namespace IlarosLauncher.Services
 
         public CompactService() : base(WebServiceType.PreCreateDocument)
         {
-            FileSystem = new CompactSystem(new FileStream("Content\\Asset.csf", FileMode.Open, FileAccess.Read));
+            FileSystem = new CompactSystem(new WriteAbleStreamFaker(new FileStream("Content\\Asset.csf", FileMode.Open, FileAccess.Read), true, true));
         }
 
         public override bool CanWorkWith(WebProgressTask task)
