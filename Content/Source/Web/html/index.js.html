@@ -1,0 +1,64 @@
+﻿<?JS
+/* Anmerkungen:
+ * Jeglicher Inhalt zwischen den <?JS und ? > ist spezieller JavaScript-Code, der durch 
+ * den Server verarbeitet wird. Nur dessen Ausgaben werden an die Oberfläche weitergeleitet.
+ * Es gibt ein Objekt $ welches Zugriff auf viele wichtige Funktionen gewährt (kein jQuery).
+ * Zur genaueren Übersicht der Funktionen einfach unter `IlarosLauncher > ServerScript.cs >
+ * ServerScriptObject` nachschauen.   
+ */
+?><html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ilaros Launcher</title>
+    <script type="text/javascript" src="/Web/js/jquery-3.2.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/Web/css/style.css" />
+    <script type="text/javascript" src="/Web/js/script.js"></script>
+</head>
+<body>
+    <div id="background-container">
+        <div class="background-layer show" 
+             style="background-image: url('/Web/img/background-default.jpg')"></div>
+    </div>
+    <div class="content">
+        <div class="nav-bar">
+            <div class="nav-box link" data-name="home">Start</div>
+            <div class="nav-box link" data-name="account">Anmeldung</div>
+            <div class="nav-box link" data-name="credit">Credits &amp; Version</div>
+            <div class="nav-box link" data-name="settings">Einstellungen</div>
+            <div class="nav-box link right" data-name="website">Online</div>
+        </div>
+        <div class="nav-containers" data-mode="home">
+            <div class="nav-container" data-name="home">
+                <?JS $.w($.lget("/Web/html/pages/home.js.html")); ?>
+            </div>
+            <div class="nav-container" data-name="account">
+                <?JS $.w($.lget("/Web/html/pages/account.js.html")); ?>
+            </div>
+            <div class="nav-container" data-name="credit">
+                <?JS $.w($.lget("/Web/html/pages/credit.js.html")); ?>
+            </div>
+            <div class="nav-container" data-name="settings">
+
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-copy">
+            &copy; 2015-<?JS $.w($.Now.getFullYear()); ?> - Ilaros
+        </div>
+        <div class="footer-version">
+            Version: 
+            <span title="Ilaros Launcher">
+                <?JS //$.w($.Version("IlarosLauncher.exe")); ?>
+            </span> - 
+            <span title="Ilaros Content">
+                <?JS //$.w($.Version("content")); ?>
+            </span>
+        </div>
+    </footer>
+    <script type="text/javascript">
+        IL.Backgrounds = []; <?JS //$.w($.GetBackgroundImages()); ?>;
+    </script>
+</body>
+</html>

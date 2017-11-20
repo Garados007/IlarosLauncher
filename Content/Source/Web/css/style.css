@@ -1,0 +1,252 @@
+/*1em = 16px  => 1em -> font-size*/
+body {
+    color: white;
+    min-width: 33.75em;
+    font-family: sans-serif;
+    overflow-y: scroll;
+}
+a,
+.extern {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+}
+#background-container {
+    position: fixed;
+    z-index: -100;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+}
+.background-layer {
+    background-position: center top;
+    position: absolute;
+    background-attachment: fixed;
+    opacity: 0;
+    transition: opacity 5s;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.background-layer.show {
+    opacity: 1;
+}
+.content {
+    margin: 1.25em auto 0 auto;
+    max-width: 60em;
+    padding: 0 1.25em;
+}
+.nav-bar {
+    margin: 0 1.25em;
+    position: relative;
+}
+.nav-box {
+    background-color: rgba(0,0,0,0.25);
+    border: 0.0625em solid rgba(0,0,0,0.75);
+    border-bottom: none;
+    border-top-left-radius: 0.625em;
+    border-top-right-radius: 0.625em;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.25em;
+    padding: 0.3125em 0.625em;
+    text-decoration: none;
+    transition: background-color 0.5s, border 0.5s;
+}
+.nav-box:hover {
+    background-color: rgba(0,0,0,0.75);
+    border-color: rgb(0,0,0);
+    text-decoration: underline;
+}
+.nav-box.right {
+    position: absolute;
+    right: 0;
+    color: #f7f589;
+}
+.nav-container {
+    border: 0.0625em solid black;
+    border-radius: 0.625em;
+    background-color: rgba(0,0,0,0.25);
+    padding: 0.625em;
+    min-height: 18.75em;
+    display: none;
+    position: relative;
+}
+footer {
+    position: relative;
+    height: 3.75em;
+    max-width: 62.5em;
+    margin: 0 auto;
+}
+.footer-copy, .footer-version {
+    position: absolute;
+    right: 1.875em;
+    top: 0.625em;
+    font-size: 0.875em;
+    color: black;
+}
+.footer-version {
+    left: 1.875em;
+    right: unset;
+}
+
+.big-button-container {
+    display: table;
+    width: 100%;
+    border-spacing: 0.625em;
+}
+.big-button {
+    display: table-cell;
+    width: 50%;
+    border: 0.0625em solid black;
+    border-radius: 0.625em;
+    padding: 0.625em;
+    transition: background-color 0.5s;
+}
+.big-button.wow {
+    background-color: rgba(155, 155, 255, 0.1);
+}
+.big-button.wow.active {
+    background-color: rgba(29, 29, 255, 0.1);
+    cursor: pointer;
+}
+.big-button.wow.active:hover {
+    background-color: rgba(29, 29, 255, 0.5);
+}
+.big-button-header {
+    text-align: center;
+    font-size: 2em;
+    padding: 0.2em 0;
+}
+.big-button-low-title {
+    font-style: italic;
+    font-size: 0.8em;
+    position: relative;
+}
+.server-ip {
+    text-align: right;
+    font-family: monospace;
+    font-style: normal;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1.1em;
+}
+.server-ip:before {
+    content: "IP: "
+}
+
+.big-button-display-group {
+    position: relative;
+}
+.fold-header {
+    background-color: rgba(89, 224, 255, 0.19);
+    cursor: pointer;
+    font-weight: bold;
+    border: 0.0625em solid rgb(7, 163, 168);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    position: relative;
+}
+.fold-header:hover {
+    background-color: rgba(89, 224, 255, 0.40);
+}
+.fold-panel > .fold-header:after {
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    right: 1em;
+    top: 0.7em;
+    width: 0;
+    height: 0;
+    border-top: 1em solid rgba(7, 163, 168, 0.59);
+    border-left: 0.6em solid transparent;
+    border-right: 0.6em solid transparent;
+    border-bottom: none;
+}
+.fold-panel.open > .fold-header:after {
+    border-bottom: 1em solid rgba(7, 163, 168, 0.59);
+    border-top: none;
+}
+.fold-panel + .fold-panel {
+    margin-top: 1em;
+}
+
+.account-header {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 0.6em;
+}
+.account-table {
+    display: table;
+    margin: 0.5em auto;
+    width: 50%;
+}
+.account-tr {
+    display: table-row;
+}
+.account-th, .account-td {
+    display: table-cell;
+}
+.account-th {
+    text-align: right;
+    font-weight: bold;
+    white-space: nowrap;
+    padding-right: 1em;
+}
+.account-td,
+.account-td > * {
+    width: 100%;
+}
+.account-submit {
+    display: table;
+    margin: 0 auto;
+    margin-top: 0.5em;
+    padding: 0.7em 2em;
+    border-radius: 0.5em;
+    background-color: rgba(139, 255, 138, 0.29);
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+.account-submit:hover {
+    background-color: rgba(139, 255, 138, 0.50);
+}
+
+.big-button-display-group,
+.server-status,
+.big-button-low-title:not([data-mode="online"]) .server-ip,
+.fold-panel:not(.open) > .fold-container {
+    display: none;
+}
+
+.nav-containers[data-mode="home"] .nav-container[data-name="home"],
+.nav-containers[data-mode="account"] .nav-container[data-name="account"],
+.nav-containers[data-mode="credit"] .nav-container[data-name="credit"],
+.nav-containers[data-mode="settings"] .nav-container[data-name="settings"],
+.big-button.wow[data-mode="link-wow"] > .link-wow, 
+.big-button.wow[data-mode="patch"] > .patch,
+.big-button.wow[data-mode="download"] > .download,
+.big-button.wow[data-mode="patch-download"] > .patch-download,
+.big-button.wow[data-mode="start"] > .start,
+.big-button-low-title[data-mode="search"] .search,
+.big-button-low-title[data-mode="notfound"] .notfound,
+.big-button-low-title[data-mode="online"] .online
+{
+    display: block;
+}
+
+@media (min-width: 1920px) {
+    body {
+        /*Spätestens hier sieht man, warum alle Angaben in em und nicht in px gemacht worden. */
+        font-size: 0.83333333vw;
+    }
+    .background-layer {
+        background-size: 100% auto;
+    }
+}

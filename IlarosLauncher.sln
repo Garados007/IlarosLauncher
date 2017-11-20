@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlarosLauncher", "IlarosLauncher\IlarosLauncher.csproj", "{F19C54B4-6E84-4EC2-9535-0A136A55C42A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9DA40BF7-F4D7-437C-96A9-8620A2C130D0} = {9DA40BF7-F4D7-437C-96A9-8620A2C130D0}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{F3CF47E6-E386-416E-AFAE-8906FC15ECA1}"
 EndProject
