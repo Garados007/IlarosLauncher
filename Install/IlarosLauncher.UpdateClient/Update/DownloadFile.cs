@@ -14,7 +14,7 @@ namespace IlarosLauncher.UpdateClient.Update
         
         public override bool CanStart(UpdateManager manager)
         {
-            return manager.GetStage<FetchDownloadList>().Finished;
+            return manager.GetStage<FetchDownloadList>().Finished && manager.GetStage<SetupLocalEnvironment>().Finished;
         }
 
         public class DownloadFileTask : UpdateTask
@@ -45,7 +45,10 @@ namespace IlarosLauncher.UpdateClient.Update
                     {
                         Progress = (float)e.BytesReceived / e.TotalBytesToReceive;
                     };
-                    var target = Environment.CurrentDirectory + "\\Downloads\\" + Path;
+
+                    var ds = DownloadSettings.Current;
+                    var target = ds.UseTemp ? Environment.ExpandEnvironmentVariables("%TEMP%\\IlarosLauncher\\Downloads\\" + Path) :
+                        ds.LauncherPath + "\\Temp\\Downloads\\" + Path;
                     var fi = new FileInfo(target);
                     if (!fi.Directory.Exists) fi.Directory.Create();
                     wc.DownloadFileAsync(new Uri(DownloadSettings.ServerUrl + "/../" + Path), target);
