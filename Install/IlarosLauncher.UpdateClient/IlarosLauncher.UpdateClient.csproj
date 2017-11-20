@@ -79,6 +79,8 @@
     <Compile Include="Update\CreateCompactFile.cs" />
     <Compile Include="Update\DownloadFile.cs" />
     <Compile Include="Update\FetchDownloadList.cs" />
+    <Compile Include="Update\FileSearcher.cs" />
+    <Compile Include="Update\ManageFiles.cs" />
     <Compile Include="Update\SetupLocalEnvironment.cs" />
     <Compile Include="Update\UpdateStage.cs" />
     <EmbeddedResource Include="Form1.resx">

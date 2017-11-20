@@ -35,6 +35,7 @@ namespace IlarosLauncher.UpdateClient.Update
             {
                 var json = GetFileList();
                 var dft = manager.GetStage<DownloadFile>().Tasks;
+                var mft = manager.GetStage<ManageFiles>().Tasks;
                 Progress = 0.4f;
                 foreach (JsonObject entry in json["modules"].Element.Array)
                 {
@@ -50,6 +51,12 @@ namespace IlarosLauncher.UpdateClient.Update
                         entry["path"].Value.Get<string>(),
                         entry["name"].Value.Get<string>(),
                         entry["hash"].Value.Get<string>()));
+                }
+                foreach (JsonObject entry in json["deleted"].Element.Array)
+                {
+                    var path = entry["path"].Value.Get<string>();
+                    if (path.StartsWith("Client/"))
+                        mft.Add(new ManageFiles.FileTask(DownloadSettings.Current.LauncherPath + "\\" + path.Substring("Client/".Length)));
                 }
                 Progress = 1;
             }
