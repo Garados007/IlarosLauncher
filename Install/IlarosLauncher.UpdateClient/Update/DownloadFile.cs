@@ -14,7 +14,7 @@ namespace IlarosLauncher.UpdateClient.Update
         
         public override bool CanStart(UpdateManager manager)
         {
-            return manager.GetStage<FetchDownloadList>().Finished;
+            return manager.GetStage<FetchDownloadList>().Finished && manager.GetStage<SetupLocalEnvironment>().Finished;
         }
 
         public class DownloadFileTask : UpdateTask
