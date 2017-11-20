@@ -45,5 +45,24 @@
         <div class="dot">
         </div>
     </div>
+    <script>
+        function checkup() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                if (this.status == 200) {
+                    document.location.href = "http://localhost:45789/Web/test.js.html";
+                }
+                else {
+                    setTimeout(checkup, 100);
+                }
+            };
+            xhttp.onerror = function (e) {
+                console.log(e);
+            };
+            xhttp.open("GET", "http://localhost:45789/ready/?_d" + new Date().valueOf() + "&_rn=" + Math.random(), true);
+            xhttp.send();
+        }
+        checkup();
+    </script>
 </body>
 </html>

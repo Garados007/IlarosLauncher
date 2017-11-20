@@ -25,6 +25,10 @@ namespace IlarosLauncher.Services
                 MimeType = MimeTypes.TextPlain,
                 TransferCompleteData = true
             });
+            task.Document.ResponseHeader.HeaderParameter["Cache-Control"] = "no-cache, no-store, must-revalidate";
+            task.Document.ResponseHeader.HeaderParameter["Pragma"] = "no-cache";
+            task.Document.ResponseHeader.HeaderParameter["Expires"] = "0";
+            task.Document.ResponseHeader.HeaderParameter["Access-Control-Allow-Origin"] = "*";
         }
     }
 }

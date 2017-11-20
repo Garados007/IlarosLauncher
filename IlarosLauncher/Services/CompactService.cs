@@ -41,7 +41,7 @@ namespace IlarosLauncher.Services
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 var path = Environment.CurrentDirectory + "\\Web";
-                for (int i = 0; i < loc.Length; ++i)
+                for (int i = 1; i < loc.Length; ++i)
                     path += "\\" + loc[i];
                 if (File.Exists(path))
                     task.Document.DataSources.Add(
