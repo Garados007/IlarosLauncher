@@ -85,7 +85,7 @@ namespace IlarosLauncher.Services
             if (get.ContainsKey("dir") && !bool.TryParse(get["dir"], out s.dir)) s.dir = true;
             if (get.ContainsKey("strict") && !bool.TryParse(get["strict"], out s.strict)) s.dir = false;
             if (get.ContainsKey("details") && !bool.TryParse(get["details"], out s.details)) s.details = true;
-            if (get.ContainsKey("emptydirs") && !bool.TryParse(get["emptrydirs"], out s.emptydirs)) s.emptydirs = true;
+            if (get.ContainsKey("emptydirs") && !bool.TryParse(get["emptydirs"], out s.emptydirs)) s.emptydirs = true;
             if (get.ContainsKey("filter"))
             {
                 var l = new List<string>();
