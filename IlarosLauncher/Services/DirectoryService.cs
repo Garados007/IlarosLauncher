@@ -67,6 +67,8 @@ namespace IlarosLauncher.Services
                 {
                     var g = new JsonObject();
                     g.Add("url", JsonValue.Create(url));
+                    g.Add("parent", JsonValue.Create(pathToUrl(dir.Parent?.FullName ?? "")));
+                    g.Add("parentpath", JsonValue.Create(dir.Parent?.FullName ?? ""));
                     json = g;
                 }
             }
@@ -76,6 +78,19 @@ namespace IlarosLauncher.Services
                 MimeType = MimeTypes.ApplicationJson,
                 TransferCompleteData = true
             });
+        }
+
+        string pathToUrl(string path)
+        {
+            var p = path.Replace(":", "").Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+            var sb = new StringBuilder(path.Length + 4);
+            sb.Append("/dir");
+            foreach (var t in p)
+            {
+                sb.Append('/');
+                sb.Append(WebServerHelper.EncodeUri(t));
+            }
+            return sb.ToString();
         }
 
         Settings GetSettings(Dictionary<string, string> get)
@@ -112,15 +127,21 @@ namespace IlarosLauncher.Services
                 json.Add("modified", JsonValue.Create(dir.LastWriteTime.ToString("s")));
             }
             if (!parent) return json;
+            json.Add("parent", JsonValue.Create(pathToUrl(dir.Parent?.FullName ?? "")));
+            json.Add("parentpath", JsonValue.Create(dir.Parent?.FullName ?? ""));
             if (set.dir)
             {
                 var list = new JsonArray();
                 json.Add("dirs", list);
                 foreach (var sd in dir.GetDirectories())
-                { 
-                    if ((!set.emptydirs && sd.GetDirectories().Length + sd.GetFiles().Length == 0) ||
-                        (sd.Attributes & IgnoreFiles) != 0) continue;
-                    list.Add(GetJson(sd, set, false, url + WebServerHelper.EncodeUri(sd.Name) + "/"));
+                {
+                    try
+                    {
+                        if ((!set.emptydirs && sd.GetDirectories().Length + sd.GetFiles().Length == 0) ||
+                            (sd.Attributes & IgnoreFiles) != 0) continue;
+                        list.Add(GetJson(sd, set, false, url + WebServerHelper.EncodeUri(sd.Name) + "/"));
+                    }
+                    catch { }
                 }
             }
             if (set.files)
@@ -129,10 +150,14 @@ namespace IlarosLauncher.Services
                 json.Add("files", list);
                 foreach (var f in dir.GetFiles())
                 {
-                    if (f.Extension == "" || f.IsReadOnly || (f.Attributes &  IgnoreFiles) != 0) continue;
-                    var types = GetFilters(f);
-                    if (Match(types, set.filter, set.strict))
-                        list.Add(GetJson(f, set, types));
+                    try
+                    {
+                        if (f.Extension == "" || f.IsReadOnly || (f.Attributes & IgnoreFiles) != 0) continue;
+                        var types = GetFilters(f);
+                        if (Match(types, set.filter, set.strict))
+                            list.Add(GetJson(f, set, types));
+                    }
+                    catch { }
                 }
             }
             return json;

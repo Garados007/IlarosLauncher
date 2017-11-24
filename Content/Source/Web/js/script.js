@@ -64,6 +64,16 @@ $(function () {
     $(".fold-header").click(function () {
         $(this).parent().toggleClass("open");
     });
+    //Große Buttons
+    $(".big-button.wow").click(function () {
+        switch ($(this).attr("data-mode")) {
+            case "link-wow": {
+                window.showBrowser("WoW Pfad heraussuchen", "wow,all", function (path) {
+                    alert(path);
+                });
+            } break;
+        }
+    });
     //Status abrufen
     IL.FetchStatus();
 });
