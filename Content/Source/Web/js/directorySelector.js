@@ -97,7 +97,7 @@
 					"data-modified": e.modified,
 					"data-size": e.size,
 					"data-sizet": e.sizet,
-					"data-types": JSON.stringify(e.types)
+					"data-types": encodeURI(JSON.stringify(e.types))
 				}, [
 					html("dir-img-box dir-img-box-file"),
 					html("dir-name", [e.name])]);
@@ -136,6 +136,7 @@
 					url = b.attr("data-url");
 					dirInfo.find(".dir-info-name").text("");
 					dirInfo.find(".dir-info-path").text("");
+					dirInfo.find(".dir-info-info").text("");
 					dirInfo.find(".dir-content-info-lower").removeClass("show");
 					updateDirView();
 				}
@@ -143,6 +144,10 @@
 				var b = $(this);
 				dirInfo.find(".dir-info-name").text(this.hasAttribute("data-name") ? b.attr("data-name") : "Übergeordneter Ordner");
 				dirInfo.find(".dir-info-path").text(this.hasAttribute("data-path") ? b.attr("data-path") != "" ? b.attr("data-path") : "Arbeitsplatz" : "");
+				dirInfo.find(".dir-info-info").html(
+                    (this.hasAttribute("data-created") ? "Erstellt: " + new Date(b.attr("data-created")).toLocaleString() + "<br/>" : "") +
+                    (this.hasAttribute("data-modified") ? "Bearbeitet: " + new Date(b.attr("data-modified")).toLocaleString() + "<br/>" : "") +
+                    (this.hasAttribute("data-sizet") ? "Größe: " + b.attr("data-sizet") + "<br/>" : ""));
 			});
 		});
 	}
@@ -163,7 +168,8 @@
                         html("dir-content-info-container", [
                             html("dir-content-info-upper", [
 					            html("dir-info-name"),
-					            html("dir-info-path")
+					            html("dir-info-path"),
+                                html("dir-info-info")
                             ]),
                             html("dir-content-info-lower", [
                                 html("dir-info-select-name"),

@@ -101,7 +101,7 @@ body.dir-visible footer {
     height: 70vh;
 }
 .dir-content-info {
-    width: 10em;
+    width: 15em;
     position: relative;
     border-left: 1px solid #727272;
     vertical-align: top;
@@ -126,6 +126,9 @@ body.dir-visible footer {
 }
 .dir-info-path {
     font-size: 0.7em;
+}
+.dir-info-info {
+    font-size: 0.9em;
 }
 .dir-content-info-container {
     height: 100%;

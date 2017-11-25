@@ -68,7 +68,7 @@ $(function () {
     $(".big-button.wow").click(function () {
         switch ($(this).attr("data-mode")) {
             case "link-wow": {
-                window.showBrowser("WoW Pfad heraussuchen", "wow,all", function (path) {
+                window.showBrowser("WoW Pfad heraussuchen", "wow", function (path) {
                     alert(path);
                 });
             } break;
