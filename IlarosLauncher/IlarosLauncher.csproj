@@ -59,6 +59,7 @@
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\ReadyService.cs" />
     <Compile Include="Services\ServerScriptService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="WriteAbleStreamFaker.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
