@@ -1,0 +1,166 @@
+﻿.content, footer {
+    transition: opacity 0.3s;
+}
+body.dir-visible .content,
+body.dir-visible footer {
+    opacity: 0;
+}
+.dir-window-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+.dir-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid #727272;
+    background-color: rgba(114, 114, 114, 0.23);
+    width: 80%;
+}
+.dir-header {
+    position: relative;
+    font-size: 1.2em;
+    display: table;
+    width: 100%;
+    color: #636363;
+    cursor: pointer;
+}
+.dir-header-title, .dir-header-close {
+    display: table-cell;
+    width: 100%;
+    padding: 0.2em 0.3em;
+
+}
+.dir-header-close {
+    width: 4em;
+    text-align: center;
+}
+.dir-header-close:hover {
+    background-color: rgba(255, 0, 0, 0.23);
+}
+.dir-path-bar {
+    border-top: 1px solid #727272;
+    border-bottom: 1px solid #727272;
+    padding: 0.3em 0.5em;
+    overflow: hidden;
+}
+.dir-path {
+    min-height: 1em;
+    white-space: nowrap;
+    text-wrap: none;
+}
+.dir-path:empty:before {
+    content: "Arbeitsplatz";
+    display: inline;
+}
+.dir-button {
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    position: relative;
+    padding: 0.3em;
+    border: 1px solid #727272;
+    margin: 0.3em;
+    cursor: pointer;
+    overflow: hidden;
+}
+.dir-button:hover {
+    background-color: rgba(114, 114, 114, 0.59);
+}
+.dir-img-box {
+    display: block;
+    margin: 0 auto 0.1em;
+    width: 4em;
+    height: 4em;
+    background-position: top left;
+    background-size: 100% 100%;
+}
+.dir-img-box-up {
+    background-image: url("/Web/img/back-icon.png");
+}
+.dir-img-box-dir {
+    background-image: url("/Web/img/folder-icon.png");
+}
+
+.dir-img-box-file {
+    background-image: url("/Web/img/file-icon.png");
+}
+.dir-content-box,
+.dir-content-info-container {
+    display: table;
+    width: 100%;
+}
+.dir-content-view, .dir-content-info {
+    display: table-cell;
+}
+.dir-content-view {
+    height: 70vh;
+}
+.dir-content-info {
+    width: 15em;
+    position: relative;
+    border-left: 1px solid #727272;
+    vertical-align: top;
+}
+.dir-content-info > div {
+    height: 70vh;
+}
+.dir-name {
+    text-align: center;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    text-wrap: none;
+    white-space: nowrap;
+}
+.dir-view {
+    height: 70vh;
+    overflow-y: auto;
+}
+.dir-info-name {
+    font-weight: bold;
+}
+.dir-info-path {
+    font-size: 0.7em;
+}
+.dir-info-info {
+    font-size: 0.9em;
+}
+.dir-content-info-container {
+    height: 100%;
+}
+.dir-content-info-upper, .dir-content-info-lower {
+    display: table-row;
+}
+.dir-content-info-lower {
+    height: 1px;
+    padding: 0.3em;
+    background-color: rgba(98, 153, 77, 0.23);
+}
+.dir-content-info-lower:not(.show) {
+    display: none;
+}
+.dir-info-select-name {
+    border-top: 1px solid #727272;
+    padding: 0.3em;
+    font-size: 1.1em;
+}
+.dir-info-select-button {
+    cursor: pointer;
+    margin: 0.3em;
+    padding: 0.5em;
+    border-radius: 0.3em;
+    border: 1px solid #727272;
+    background-color: rgba(88, 255, 48, 0.38);
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+.dir-info-select-button:hover {
+    background-color: rgba(88, 255, 48, 1);
+}
