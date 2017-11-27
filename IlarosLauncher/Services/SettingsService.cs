@@ -82,24 +82,35 @@ namespace IlarosLauncher.Services
                     (og) => post["group"] == "" ? og == UserSettings.Groups[0] : og.Name == post["group"]) ?? 
                     UserSettings.Add(post["group"]);
                 var s = g.Options.FindName(post["setting"]) ?? g.Options.FastAdd(post["setting"], 0);
+                JsonValue val = null;
                 switch (post["type"])
                 {
                     case "int":
                         int iv;
                         if (int.TryParse(post["value"], out iv)) s.SetValue(iv);
+                        val = JsonValue.Create(iv);
                         break;
                     case "float":
                         float fv;
                         if (float.TryParse(post["value"], out fv)) s.SetValue(fv);
+                        val = JsonValue.Create(fv);
                         break;
                     case "bool":
                         bool bv;
                         if (bool.TryParse(post["value"], out bv)) s.SetValue(bv);
+                        val = JsonValue.Create(bv);
                         break;
                     case "string":
                         s.SetValue(post["value"]);
+                        val = JsonValue.Create(post["value"]);
                         break;
                 }
+                var news = new JsonArray
+                {
+                    JsonValue.Create(post["group"]),
+                    JsonValue.Create(post["setting"])
+                };
+                Server.News.Add(new NewsEntry("uset", JsonValue.Create(news.ToString(JsonParser.SingleLine)), val));
                 Save();
             }
         }
