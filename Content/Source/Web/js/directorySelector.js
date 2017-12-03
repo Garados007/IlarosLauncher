@@ -188,7 +188,7 @@
 		//events
 		d.find(".dir-header-close").click(function () {
 			d.remove();
-			$($("body")).removeClass("dir-visible");
+			$("body").removeClass("dir-visible");
 		});
 		d.find(".dir-info-select-button").click(function () {
 		    d.remove();
@@ -210,5 +210,11 @@
 		finalFunction = success || function () { };
 
 		buildWindow();
-	};
+    };
+
+    ctx.settingsChanged(function (value) {
+        path = value;
+        if ($("body").hasClass("dir-visible"))
+            updateDirView();
+    }, "wow", "path");
 })(this);
