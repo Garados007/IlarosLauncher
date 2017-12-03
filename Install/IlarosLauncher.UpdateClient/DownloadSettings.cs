@@ -49,7 +49,7 @@ namespace IlarosLauncher.UpdateClient
 
         public static bool CanConnect()
         {
-            const int myversion = 0;
+            const int myversion = 1;
             try
             {
                 using (var wc = new WebClient())

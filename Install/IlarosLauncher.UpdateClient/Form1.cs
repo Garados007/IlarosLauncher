@@ -214,6 +214,7 @@ namespace IlarosLauncher.UpdateClient
             manager.Stages.Add(new ManageFiles());
             manager.Stages.Add(new FileSearcher());
             manager.Stages.Add(new SetRegistry());
+            manager.Stages.Add(new DesktopLink());
 
             stageUpdateTimer.Enabled = true;
             await manager.Execute();
