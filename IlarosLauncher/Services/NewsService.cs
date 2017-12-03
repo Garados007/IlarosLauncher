@@ -56,7 +56,7 @@ namespace IlarosLauncher.Services
             NewsEntryList list;
             lock (lockList)
             {
-                if (tokenLists.ContainsKey(token))
+                if (token != null && tokenLists.ContainsKey(token))
                 {
                     list = tokenLists[token];
                     list.LastAccess = DateTime.Now;
@@ -86,7 +86,7 @@ namespace IlarosLauncher.Services
             var sb = new StringBuilder(b.Length * 2);
             foreach (var n in b)
             {
-                sb.Append(hex[n << 4]);
+                sb.Append(hex[n >> 4]);
                 sb.Append(hex[n & 15]);
             }
             return sb.ToString();
