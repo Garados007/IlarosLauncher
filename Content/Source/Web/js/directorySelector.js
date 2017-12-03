@@ -68,41 +68,44 @@
 	}
 
 	function buildDirView(url, data) {
-		var h = html("dir-view", { "data-url": url },
+        var h = html("dir-view", { "data-url": url },
             (data.parent != undefined ? [
                 html("dir-folder dir-button", {
-                	"data-url": data.parent,
+                    "data-url": data.parent,
                     "data-path": data.parentpath
                 }, [
-                    html("dir-img-box dir-img-box-up"),
-                    html("dir-name", [".."])
-                ])
+                        html("dir-img-box dir-img-box-up"),
+                        html("dir-name", [".."])
+                    ])
             ] : []).concat(
-			convertAll(data.dirs, function (e) {
-				return html("dir-folder dir-button", {
-					"data-url": e.url,
-					"data-path": e.path,
-					"data-name": e.name,
-					"data-created": e.created,
-					"data-modified": e.modified
-				}, [
-					html("dir-img-box dir-img-box-dir"),
-					html("dir-name", [e.name])
-				]);
-			}).concat(convertAll(data.files, function (e) {
-				return html("dir-file dir-button", {
-					"data-path": e.path,
-					"data-name": e.name,
-					"data-created": e.created,
-					"data-modified": e.modified,
-					"data-size": e.size,
-					"data-sizet": e.sizet,
-					"data-types": encodeURI(JSON.stringify(e.types))
-				}, [
-					html("dir-img-box dir-img-box-file"),
-					html("dir-name", [e.name])]);
-			})))
-		);
+                convertAll(data.dirs, function (e) {
+                    return html("dir-folder dir-button", {
+                        "data-url": e.url,
+                        "data-path": e.path,
+                        "data-name": e.name,
+                        "data-created": e.created,
+                        "data-modified": e.modified
+                    }, [
+                            html("dir-img-box dir-img-box-dir"),
+                            html("dir-name", [e.name])
+                        ]);
+                }).concat(convertAll(data.files, function (e) {
+                    return html("dir-file dir-button " +
+                        e.types.map(function (value, index, array) {
+                            return "dir-file-type-" + value.replace(/\./, "-");
+                        }).join(" "), {
+                            "data-path": e.path,
+                            "data-name": e.name,
+                            "data-created": e.created,
+                            "data-modified": e.modified,
+                            "data-size": e.size,
+                            "data-sizet": e.sizet,
+                            "data-types": encodeURI(JSON.stringify(e.types))
+                        }, [
+                            html("dir-img-box dir-img-box-file"),
+                            html("dir-name", [e.name])]);
+                })))
+        );
 		var cont = $("<div/>");
 		cont.addClass("dir-view-container");
 		cont.html(h);
@@ -205,6 +208,7 @@
     ctx.showBrowser = function (title, fileFilter, success) {
         if (path == null)
             path = ctx.settings("wow", "path") || "";
+        url = "/dir/" + path.replace(/\\/, "/").replace(/:/, "");
 		winTitle = title;
 		filter = fileFilter;
 		finalFunction = success || function () { };
@@ -214,6 +218,7 @@
 
     ctx.settingsChanged(function (value) {
         path = value;
+        url = "/dir/" + path.replace(/\\/, "/").replace(/:/, "");
         if ($("body").hasClass("dir-visible"))
             updateDirView();
     }, "wow", "path");
