@@ -236,6 +236,7 @@ namespace IlarosLauncher.UpdateClient
             stageUpdateTimer_Tick(sender, e);
             manager.Dispose();
             installFinished = true;
+            if (optCloseWindowAfterDownload.Checked) Close();
 #if DEBUG
             if (!System.Diagnostics.Debugger.IsAttached) tablessControl1.SelectedTab = tabFinish;
             else SetButtonStates(false, true, false, true);
