@@ -101,7 +101,7 @@ class VersionsList {
 			foreach ($d->deleted as $e) {
 				$r = new VersionDeleted();
 				$r->load($e);
-				$this->ressources[] = $r;
+				$this->deleted[] = $r;
 			}
 	}
 
