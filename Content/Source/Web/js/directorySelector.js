@@ -1,5 +1,5 @@
 ﻿(function (ctx) {
-	var path = "", targetPath;
+	var path = null, targetPath;
 	var url = "/dir/";
 	var infoCache = {};
 	var dirCache = {};
@@ -188,7 +188,7 @@
 		//events
 		d.find(".dir-header-close").click(function () {
 			d.remove();
-			$($("body")).removeClass("dir-visible");
+			$("body").removeClass("dir-visible");
 		});
 		d.find(".dir-info-select-button").click(function () {
 		    d.remove();
@@ -199,14 +199,22 @@
 		dirContainer = d.find(".dir-content-view");
 		dirPathBox = d.find(".dir-path");
 		dirInfo = d.find(".dir-content-info");
-		updateDirView();
+		updateDirView(); 
 	}
 
-	ctx.showBrowser = function (title, fileFilter, success) {
+    ctx.showBrowser = function (title, fileFilter, success) {
+        if (path == null)
+            path = ctx.settings("wow", "path") || "";
 		winTitle = title;
 		filter = fileFilter;
 		finalFunction = success || function () { };
 
 		buildWindow();
-	};
+    };
+
+    ctx.settingsChanged(function (value) {
+        path = value;
+        if ($("body").hasClass("dir-visible"))
+            updateDirView();
+    }, "wow", "path");
 })(this);

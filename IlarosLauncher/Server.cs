@@ -21,6 +21,8 @@ namespace IlarosLauncher
 
         public static SettingsService UserSettings { get; private set; }
 
+        public static NewsService News { get; private set; }
+
         public static void Start()
         {
             CurrentServer = new WebServer(new WebServerSettings(45789, 5000));
@@ -55,7 +57,7 @@ namespace IlarosLauncher
             CurrentServer.AddWebService(CompactService = new CompactService());
             CurrentServer.AddWebService(new ServerScriptService());
             CurrentServer.AddWebService(new ReadyService());
-            CurrentServer.AddWebService(new NewsService());
+            CurrentServer.AddWebService(News = new NewsService());
             CurrentServer.AddWebService(new DirectoryService());
             CurrentServer.AddWebService(UserSettings = new SettingsService());
         }
