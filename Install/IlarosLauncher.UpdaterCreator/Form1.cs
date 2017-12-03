@@ -15,7 +15,7 @@ namespace IlarosLauncher.UpdaterCreator
 {
     public partial class Form1 : Form
     {
-        const int myversion = 0;
+        const int myversion = 1;
         public Form1()
         {
             InitializeComponent();
