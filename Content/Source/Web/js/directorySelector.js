@@ -1,5 +1,5 @@
 ﻿(function (ctx) {
-	var path = "", targetPath;
+	var path = null, targetPath;
 	var url = "/dir/";
 	var infoCache = {};
 	var dirCache = {};
@@ -202,7 +202,9 @@
 		updateDirView();
 	}
 
-	ctx.showBrowser = function (title, fileFilter, success) {
+    ctx.showBrowser = function (title, fileFilter, success) {
+        if (path == null)
+            path = ctx.settings("wow", "path") || "";
 		winTitle = title;
 		filter = fileFilter;
 		finalFunction = success || function () { };
