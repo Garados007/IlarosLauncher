@@ -19,6 +19,9 @@ namespace IlarosLauncher.UpdateClient
 
         public static string ServerType;
         public static string ServerUrl;
+        public static string ImgSourceType;
+        public static string ImgCountLink;
+        public static string ImgFileLink;
 
         public static bool LoadFromIni()
         {
@@ -27,6 +30,10 @@ namespace IlarosLauncher.UpdateClient
                 var l = new OptionsLoader("config.ini", true);
                 ServerType = l[0].Options.GetString("ServerType");
                 ServerUrl = l[0].Options.GetString("ServerUrl");
+                ImgSourceType = l[0].Options.GetString("ImgSourceType");
+                ImgCountLink = l[0].Options.GetString("ImgCountLink");
+                ImgFileLink = l[0].Options.GetString("ImgFileLink");
+
 #if DEBUG
                 if (!System.Diagnostics.Debugger.IsAttached) File.Delete("config.ini");
 #else
@@ -42,7 +49,7 @@ namespace IlarosLauncher.UpdateClient
 
         public static bool CanConnect()
         {
-            const int myversion = 0;
+            const int myversion = 1;
             try
             {
                 using (var wc = new WebClient())

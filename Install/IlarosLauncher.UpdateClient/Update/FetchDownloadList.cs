@@ -52,12 +52,13 @@ namespace IlarosLauncher.UpdateClient.Update
                         entry["name"].Value.Get<string>(),
                         entry["hash"].Value.Get<string>()));
                 }
-                foreach (JsonObject entry in json["deleted"].Element.Array)
-                {
-                    var path = entry["path"].Value.Get<string>();
-                    if (path.StartsWith("Client/"))
-                        mft.Add(new ManageFiles.FileTask(DownloadSettings.Current.LauncherPath + "\\" + path.Substring("Client/".Length)));
-                }
+                if (json["deleted"] != null)
+                    foreach (JsonObject entry in json["deleted"].Element.Array)
+                    {
+                        var path = entry["path"].Value.Get<string>();
+                        if (path.StartsWith("Client/"))
+                            mft.Add(new ManageFiles.FileTask(DownloadSettings.Current.LauncherPath + "\\" + path.Substring("Client/".Length)));
+                    }
                 Progress = 1;
             }
 

@@ -14,7 +14,7 @@ namespace IlarosLauncher.UpdateClient
 {
     public partial class Form1 : Form
     {
-        bool validPath = false;
+        bool validPath = false, installFinished = false;
 
         public Form1()
         {
@@ -25,6 +25,20 @@ namespace IlarosLauncher.UpdateClient
             else licensebox.Text = "no license file found";
             SetButtonStates(false, false, false, true);
             this.Load += Form1_Load;
+            this.FormClosing += Form1_FormClosing;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (installFinished && startLauncher.Checked)
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = DownloadSettings.Current.LauncherPath + "\\IlarosLauncher.exe",
+                    Verb = "",
+                    WorkingDirectory = DownloadSettings.Current.LauncherPath
+                });
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -214,12 +228,15 @@ namespace IlarosLauncher.UpdateClient
             manager.Stages.Add(new ManageFiles());
             manager.Stages.Add(new FileSearcher());
             manager.Stages.Add(new SetRegistry());
+            manager.Stages.Add(new DesktopLink());
 
             stageUpdateTimer.Enabled = true;
             await manager.Execute();
             stageUpdateTimer.Enabled = false;
             stageUpdateTimer_Tick(sender, e);
             manager.Dispose();
+            installFinished = true;
+            if (optCloseWindowAfterDownload.Checked) Close();
 #if DEBUG
             if (!System.Diagnostics.Debugger.IsAttached) tablessControl1.SelectedTab = tabFinish;
             else SetButtonStates(false, true, false, true);
