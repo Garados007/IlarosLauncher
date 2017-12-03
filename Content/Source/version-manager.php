@@ -41,7 +41,7 @@ class VersionsList {
 	}
 
 	private function loadFromDirectory($dir) {
-		$prefix = $dir == "." ? "" : $dir . "/";
+		$prefix = $dir == "." ? "" : $dir . "/"; 
 		foreach (scandir($dir) as $e) {
 			if ($e == "." || $e == "..") continue;
 			$path = $prefix . $e;
