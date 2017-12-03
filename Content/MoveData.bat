@@ -9,6 +9,8 @@ mkdir "Updater Creation"
 mkdir "Updater Creation\Content"
 copy /Y "Source\IlarosLauncher.UpdaterCreator.exe" "Updater Creation\IlarosLauncher.UpdaterCreator.exe"
 copy /Y "Source\DisplayDownload.cs" "Updater Creation\Content\DisplayDownload.cs"
+ResGen.exe "Source\DisplayDownload.resx" "Updater Creation\Content\IlarosLauncher.Update.DisplayDownload.resources" /str:cs,IlarosLauncher.Update,DisplayDownload
+copy /Y "Source\wow-icon-transparent.ico" "Updater Creation\Content\wow-icon-transparent.ico"
 
 rem ### \Web ###
 mkdir "Web"

@@ -44,6 +44,9 @@
     <Compile Include="dummy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ResGen.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Source\ilweb.php">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -107,6 +110,10 @@
     <Content Include="Source\Web\test.js.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Source\wow-icon-transparent.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Source\wow-icon-transparent.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
