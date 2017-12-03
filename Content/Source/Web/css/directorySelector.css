@@ -89,6 +89,9 @@ body.dir-visible footer {
 .dir-img-box-file {
     background-image: url("/Web/img/file-icon.png");
 }
+.dir-file-type-wow .dir-img-box-file {
+    background-image: url("/Web/img/wow-icon-transparent.png");
+}
 .dir-content-box,
 .dir-content-info-container {
     display: table;
