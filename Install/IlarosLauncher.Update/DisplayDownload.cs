@@ -50,7 +50,9 @@ namespace IlarosLauncher.Update
             try
             {
                 File.WriteAllText(tempPath + "\\config.ini", "ServerType=\"" + DownloadSetting.ServerType +
-                    "\"\r\nServerUrl=\"" + DownloadSetting.ServerUrl + "\"\r\n");
+                    "\"\r\nServerUrl=\"" + DownloadSetting.ServerUrl + "\"\r\nImgSourceType=\"" +
+                    DownloadSetting.ImgSourceType + "\"\r\nImgCountLink=\"" + DownloadSetting.ImgCountLink +
+                    "\"\r\nImgFileLink=" + DownloadSetting.ImgFileLink + "\"\r\n");
                 if (!File.Exists(tempPath + "\\config.ini"))
                     MessageBox.Show("Datei wurde noch nicht erstellt...");
                 var wc = new System.Net.WebClient();
