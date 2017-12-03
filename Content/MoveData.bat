@@ -28,6 +28,7 @@ copy /Y "Source\License.txt" "Web\Update\License.txt"
 copy /Y "Source\MaxLib.dll" "Web\Update\MaxLib.dll"
 copy /Y "Source\MaxLib.WinForm.dll" "Web\Update\MaxLib.WinForm.dll"
 copy /Y "Source\ilweb.php" "Web\ilweb.php"
+copy /Y "Source\version-manager.php" "Web\version-manager.php"
 copy /Y "Source\mimetypes.ini" "Web\ClientContent\mimetypes.ini"
 
 rem Create Version Infos
