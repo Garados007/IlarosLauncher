@@ -25,6 +25,7 @@ namespace IlarosLauncher.UpdaterCreator
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -84,8 +85,24 @@ namespace IlarosLauncher.UpdaterCreator
         public const string ServerUrl = @""");
             sb.Append(textBox1.Text);
             sb.Append(@""";
-        }
-    }");
+
+        public const string ImgSourceType = """);
+            switch (comboBox2.SelectedIndex)
+            {
+                case 0: sb.Append("Direct"); break;
+                case 1: sb.Append("ExtSourceOverCount"); break;
+            }
+            sb.Append(@""";
+
+        public const string ImgCountLink = @""");
+            sb.Append(textBox3.Text);
+            sb.Append(@""";
+
+        public const string ImgFileLink = @""");
+            sb.Append(textBox4.Text);
+            sb.Append(@""";
+    }
+}");
             File.WriteAllText("Content\\DownloadSettings.cs", sb.ToString());
 
             using (var mcp = new CSharpCodeProvider())
@@ -121,6 +138,28 @@ namespace IlarosLauncher.UpdaterCreator
                 }
                 MessageBox.Show("Updater wurde erfolgreich erstellt.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox3.Enabled = button4.Enabled = textBox4.Enabled = comboBox2.SelectedIndex == 1;
+        }
+
+        private async void button4_Click(object sender, EventArgs e)
+        {
+            using (var wc = new System.Net.WebClient())
+                try
+                {
+                    var t = await wc.DownloadStringTaskAsync(textBox3.Text);
+                    int c;
+                    if (int.TryParse(t, out c))
+                        label5.Text = "Server gefunden";
+                    else label5.Text = "Ungültige Rückgabe";
+                }
+                catch
+                {
+                    label5.Text = "Server konnte nicht gefunden werden";
+                }
         }
     }
 }

@@ -158,6 +158,7 @@
             this.button4.TabIndex = 14;
             this.button4.Text = "Link überprüfen";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // textBox3
             // 
@@ -181,11 +182,12 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
             "Direkt am Serverscript",
-            "Externe Quelle"});
+            "Externe Quelle (Zugriff über Anzahl)"});
             this.comboBox2.Location = new System.Drawing.Point(116, 107);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(314, 21);
             this.comboBox2.TabIndex = 11;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -202,15 +204,16 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(314, 20);
             this.textBox4.TabIndex = 17;
+            this.textBox4.Text = "/Images/img-{0:000}.jpg";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(12, 202);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(64, 13);
+            this.label8.Size = new System.Drawing.Size(51, 13);
             this.label8.TabIndex = 16;
-            this.label8.Text = "Dateiformat:";
+            this.label8.Text = "Dateilink:";
             // 
             // Form1
             // 
