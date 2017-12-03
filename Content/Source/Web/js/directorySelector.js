@@ -199,7 +199,7 @@
 		dirContainer = d.find(".dir-content-view");
 		dirPathBox = d.find(".dir-path");
 		dirInfo = d.find(".dir-content-info");
-		updateDirView();
+		updateDirView(); 
 	}
 
     ctx.showBrowser = function (title, fileFilter, success) {
