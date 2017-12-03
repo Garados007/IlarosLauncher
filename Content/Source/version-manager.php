@@ -92,7 +92,7 @@ class VersionsList {
 			$m->load($e);
 			$this->modules[] = $m;
 		}
-		foreach ($d->modules as $e) {
+		foreach ($d->ressources as $e) {
 			$r = new VersionRessource();
 			$r->load($e);
 			$this->ressources[] = $r;
@@ -143,7 +143,7 @@ class VersionsList {
 
 	public function combineWith($older) {
 		$f = array();
-		$l = new VersionList();
+		$l = new VersionsList();
 		foreach ($this->deleted as $e) {
 			$f[] = $e->path;
 			$l->deleted[] = $e;
@@ -178,7 +178,7 @@ class VersionsList {
 
 	public static function loadCurrent() {
 		if (self::$current != null) return;
-		self::$current = new VersionList();
+		self::$current = new VersionsList();
 		if (is_file("Versions/current.json")) {
 			self::$current->load("Versions/current.json");
 		}
@@ -192,7 +192,7 @@ class VersionsList {
 	public static function checkForChanges() {
 		self::loadCurrent();
 		if (time() < self::$current->date + 3600) return false;
-		$cur = new VersionList();
+		$cur = new VersionsList();
 		$cur->version = self::$current->version;
 		$cur->loadListFromSystem();
 		$dif = $cur->createDiffTo(self::$current);
@@ -209,9 +209,9 @@ class VersionsList {
 	}
 
 	public static function getGlobalDiff($fromVersion) {
-		$vers = self::getVersionList();
+		$vers = self::getVersionsList();
 		$v = array();
-		foreach ($f as $e) $v[] = implode(".", $e);
+		foreach ($vers as $e) $v[] = implode(".", $e);
 		$index = array_search($fromVersion, $v);
 		if ($index === false) {
 			$t = explode(".", $fromVersion);
@@ -220,14 +220,14 @@ class VersionsList {
 			$vers[] = $t;
 			usort($vers, "versionComparer");
 			$v = array();
-			foreach ($f as $e) $v[] = implode(".", $e);
+			foreach ($vers as $e) $v[] = implode(".", $e);
 			$index = array_search($fromVersion, $v);
 		}
-		$l = new VersionList();
-		for ($i = $index; $i<count($v); ++$i) {
+		$l = new VersionsList();
+		for ($i = $index + 1; $i<count($v); ++$i) {
 			$path = "Versions/" . $v[$i] . ".json";
 			if (!file_exists($path)) continue;
-			$n = new VersionList();
+			$n = new VersionsList();
 			$n->load($path);
 			$l = $n->combineWith($l);
 		}
@@ -235,11 +235,11 @@ class VersionsList {
 		return $l;
 	}
 
-	private static function getVersionList() {
-		if (!file_exists('Versions/')) return array();
+	private static function getVersionsList() {
+		if (!file_exists('Versions')) return array();
 		$f = array();
-		foreach (scandir('Versions/') as $e) {
-			if ($e == "." || $e == ".." || $e == "current.json" || !is_file($e) || !endsWith($e, ".json")) continue;
+		foreach (scandir('Versions') as $e) {
+			if ($e == "." || $e == ".." || $e == "current.json" || !is_file("Versions/" . $e) || !endsWith($e, ".json")) continue;
 			$v = explode(".", $e);
 			unset($v[count($v) - 1]);
 			foreach ($v as &$n)
@@ -279,7 +279,7 @@ class VersionEntry {
 
 	public function load($data) {
 		$this->path = $data->path;
-		$this->name = $data-name;
+		$this->name = $data->name;
 	}
 
 	public function equals($entrys) {
