@@ -208,6 +208,7 @@
     ctx.showBrowser = function (title, fileFilter, success) {
         if (path == null)
             path = ctx.settings("wow", "path") || "";
+        url = "/dir/" + path.replace(/\\/, "/").replace(/:/, "");
 		winTitle = title;
 		filter = fileFilter;
 		finalFunction = success || function () { };
@@ -217,6 +218,7 @@
 
     ctx.settingsChanged(function (value) {
         path = value;
+        url = "/dir/" + path.replace(/\\/, "/").replace(/:/, "");
         if ($("body").hasClass("dir-visible"))
             updateDirView();
     }, "wow", "path");

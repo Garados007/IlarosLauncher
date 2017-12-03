@@ -24,7 +24,7 @@
                 groupHandler[group][k](name, value);
         if (settingHandler[group] != undefined && settingHandler[group][name] != undefined)
             for (var k in settingHandler[group][name])
-                settingHandler[group][name](value);
+                settingHandler[group][name][k](value);
     }
 
     //settings()

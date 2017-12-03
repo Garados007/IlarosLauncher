@@ -69,8 +69,10 @@ namespace IlarosLauncher.Services
                 }
             }
             MinimizeList();
-            var json = list.ToJson().Json;
-            task.Document.DataSources.Add(new HttpStringDataSource(json)
+            var json = new JsonObject();
+            json.Add("token", JsonValue.Create(token));
+            json.Add("events", list.ToJson());
+            task.Document.DataSources.Add(new HttpStringDataSource(json.Json)
             {
                 MimeType = MimeTypes.ApplicationJson,
                 TextEncoding = "utf-8",
@@ -109,8 +111,16 @@ namespace IlarosLauncher.Services
 
         public void Add(NewsEntry entry)
         {
-            if (!list.Contains(entry))
-                list.Add(entry);
+            if (list.Contains(entry))
+            {
+                var other = list.Find((e) => e == entry);
+                if (other.Value.ArgumentString != entry.Value.ArgumentString)
+                {
+                    list.Remove(other);
+                    list.Add(entry);
+                }
+            }
+            else list.Add(entry);
         }
 
         public NewsEntryList ToChildList()
