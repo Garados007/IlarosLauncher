@@ -221,15 +221,19 @@ namespace IlarosLauncher.UpdateClient
                 Invoke(() => stage.NewTaskAdded -= Stage_NewTaskAdded);
             };
 
-            manager.Stages.Add(new FetchDownloadList());
-            manager.Stages.Add(new DownloadFile());
-            manager.Stages.Add(new SetupLocalEnvironment());
-            manager.Stages.Add(new CreateCompactFile());
-            manager.Stages.Add(new CloseWaiter());
-            manager.Stages.Add(new ManageFiles());
-            manager.Stages.Add(new FileSearcher());
-            manager.Stages.Add(new SetRegistry());
-            manager.Stages.Add(new DesktopLink());
+            manager.Stages.AddRange(new UpdateStage[] { 
+                new FetchDownloadList(),
+                new DownloadFile(),
+                new SetupLocalEnvironment(),
+                new CreateCompactFile(),
+                new CloseWaiter(),
+                new ManageFiles(),
+                new FileSearcher(),
+                new SetRegistry(),
+                new DesktopLink(),
+                new BackgroundSearcher(),
+                new BackgroundDownloader(),
+            });
 
             stageUpdateTimer.Enabled = true;
             await manager.Execute();
