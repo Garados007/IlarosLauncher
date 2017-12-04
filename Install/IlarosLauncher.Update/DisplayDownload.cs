@@ -67,6 +67,7 @@ namespace IlarosLauncher.Update
                     File.Delete(tempPath + "\\installer.zip");
                     Process.Start(new ProcessStartInfo()
                     {
+                        Arguments = mainArgs,
                         FileName = tempPath + "\\IlarosLauncher.UpdateClient.exe",
                         WorkingDirectory = tempPath,
                         Verb = "runas"
@@ -116,9 +117,12 @@ namespace IlarosLauncher.Update
 
         }
 
+        static string mainArgs;
+
         [STAThread]
-        public static void Main()
+        public static void Main(string args)
         {
+            mainArgs = args;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DisplayDownload());
