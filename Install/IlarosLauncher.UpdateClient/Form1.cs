@@ -14,7 +14,7 @@ namespace IlarosLauncher.UpdateClient
 {
     public partial class Form1 : Form
     {
-        bool validPath = false, installFinished = false;
+        bool validPath = false, installFinished = false, skipedOptions = false;
 
         public Form1()
         {
@@ -59,6 +59,34 @@ namespace IlarosLauncher.UpdateClient
                 Close();
                 return;
             }
+            if (skipedOptions = CanSkip())
+            {
+                btnInstall.PerformClick();
+            }
+        }
+
+        bool CanSkip()
+        {
+            var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software", false);
+            key = key?.OpenSubKey("IlarosLauncher", false);
+            if (key == null) return false;
+            var val = key.GetValue("LicenseAccepted");
+            if (val == null) return false;
+            if (val.ToString() == "1")
+            {
+                acceptlicense.Checked = true;
+                var path = key.GetValue("LauncherPath").ToString();
+                var db = key.GetValue("Install.DownloadBackgrounds").ToString() != "0";
+                var ua = key.GetValue("Install.UseAppData").ToString() != "0";
+                var ut = key.GetValue("Install.UseTemp").ToString() != "0";
+                useTemp.Checked = ut;
+                useAppdata.Checked = ua;
+                targetDirectory.Text = path;
+                optDownloadImagesNow.Checked = db;
+                optCreateDesktopLink.Checked = false;
+                return true;
+            }
+            else return false;
         }
 
         void SetButtonStates(bool back, bool forward, bool install, bool close)
@@ -176,6 +204,25 @@ namespace IlarosLauncher.UpdateClient
             base.Invoke(action);
         }
 
+        private void useTemp_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Text = useTemp.Checked ? "Speichert temporäre Daten ins dafür vorgesehene Systemverzeichnis." :
+                "Temporäre Daten werden in dem Installationsordner gespeichert. ACHTUNG: Es muss Schreibzugriff bestehen.";
+
+        }
+
+        private void useAppdata_CheckedChanged(object sender, EventArgs e)
+        {
+            label2.Text = useAppdata.Checked ? "Speichert Einstellungen und Hintergründe in das dafür vorgesehene Systemverzeichnis." :
+                "Einstellungen und Hintergründe werden in den Installationsordner gespeichert. ACHTUNG: Es muss Schreibzugriff bestehen.";
+        }
+
+        private void useRegistry_CheckedChanged(object sender, EventArgs e)
+        {
+            label3.Text = useRegistry.Checked ? "Speichert die obrigen Einstellungen in die Registry." :
+                "NICHT UNTERSTÜTZT !!!";
+        }
+
         private async void btnInstall_Click(object sender, EventArgs e)
         {
             tablessControl1.SelectedTab = tabInstall;
@@ -190,6 +237,7 @@ namespace IlarosLauncher.UpdateClient
                 UseAppData = useAppdata.Checked,
                 UseRegistry = useRegistry.Checked,
                 UseTemp = useTemp.Checked,
+                SkipedOptions = skipedOptions,
             };
             var manager = new UpdateManager(2);
             manager.StartExecution += (s, stage) =>

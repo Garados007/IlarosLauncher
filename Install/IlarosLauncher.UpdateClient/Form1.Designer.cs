@@ -277,6 +277,7 @@
             this.useRegistry.TabIndex = 4;
             this.useRegistry.Text = "Registry nutzen";
             this.useRegistry.UseVisualStyleBackColor = true;
+            this.useRegistry.CheckedChanged += new System.EventHandler(this.useRegistry_CheckedChanged);
             // 
             // label2
             // 
@@ -300,6 +301,7 @@
             this.useAppdata.TabIndex = 2;
             this.useAppdata.Text = "%APPDATA% nutzen";
             this.useAppdata.UseVisualStyleBackColor = true;
+            this.useAppdata.CheckedChanged += new System.EventHandler(this.useAppdata_CheckedChanged);
             // 
             // label1
             // 
@@ -322,6 +324,7 @@
             this.useTemp.TabIndex = 0;
             this.useTemp.Text = "%TEMP% nutzen";
             this.useTemp.UseVisualStyleBackColor = true;
+            this.useTemp.CheckedChanged += new System.EventHandler(this.useTemp_CheckedChanged);
             // 
             // tabPage3
             // 

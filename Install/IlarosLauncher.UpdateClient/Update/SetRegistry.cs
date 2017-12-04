@@ -18,7 +18,8 @@ namespace IlarosLauncher.UpdateClient.Update
 
         public SetRegistry()
         {
-            Tasks.Add(new RegistryTask());
+            if (!DownloadSettings.Current.SkipedOptions)
+                Tasks.Add(new RegistryTask());
         }
 
         public class RegistryTask : UpdateTask
@@ -37,6 +38,10 @@ namespace IlarosLauncher.UpdateClient.Update
                 skey.SetValue("DataPath", ds.UseAppData ?
                     Environment.ExpandEnvironmentVariables("%APPDATA%\\IlarosLauncher") :
                     ds.LauncherPath);
+                skey.SetValue("LicenseAccepted", 1);
+                skey.SetValue("Install.DownloadBackgrounds", ds.DownloadBackgrounds ? 1 : 0);
+                skey.SetValue("Install.UseAppData", ds.UseAppData ? 1 : 0);
+                skey.SetValue("Install.UseTemp", ds.UseTemp ? 1 : 0);
                 skey.Flush();
                 skey.Close();
                 key.Close();

@@ -12,7 +12,7 @@ namespace IlarosLauncher.UpdateClient
     class DownloadSettings
     {
         public bool UseTemp, UseAppData, UseRegistry, LSSearchUpdates, LSDownloadUpdates, 
-            LSDownloadBackgrounds, DownloadBackgrounds, CreateDesktopLink;
+            LSDownloadBackgrounds, DownloadBackgrounds, CreateDesktopLink, SkipedOptions;
         public string LauncherPath;
 
         public static DownloadSettings Current;
