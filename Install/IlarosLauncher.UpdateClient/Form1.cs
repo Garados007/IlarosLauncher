@@ -59,10 +59,35 @@ namespace IlarosLauncher.UpdateClient
                 Close();
                 return;
             }
-            if (skipedOptions = CanSkip())
+            HandleStartFlags();
+            if (!Program.StartupParams.Options.ContainsKey("/disable-skip") && (skipedOptions = CanSkip()))
             {
                 btnInstall.PerformClick();
             }
+        }
+
+        void HandleStartFlags()
+        {
+            var p = Program.StartupParams.Options;
+            if (p.ContainsKey("/path")) targetDirectory.Text = p["/path"];
+            if (p.ContainsKey("/use-temp")) useTemp.Checked = true;
+            if (p.ContainsKey("/app-data")) useAppdata.Checked = true;
+            if (p.ContainsKey("/search-updates")) optSearchForUpdates.Checked = true;
+            if (p.ContainsKey("/download-updates")) optDownloadUpdates.Checked = true;
+            if (p.ContainsKey("/download-backgrounds")) optDownloadNewImages.Checked = true;
+            if (p.ContainsKey("/desktop-link")) optCreateDesktopLink.Checked = true;
+            if (p.ContainsKey("/download-backgrounds-now")) optDownloadImagesNow.Checked = true;
+            if (p.ContainsKey("/close-window")) optCloseWindowAfterDownload.Checked = true;
+            if (p.ContainsKey("/start-launcher")) optStartLauncher.Checked = true;
+            if (p.ContainsKey("/!use-temp")) useTemp.Checked = false;
+            if (p.ContainsKey("/!app-data")) useAppdata.Checked = false;
+            if (p.ContainsKey("/!search-updates")) optSearchForUpdates.Checked = false;
+            if (p.ContainsKey("/!download-updates")) optDownloadUpdates.Checked = false;
+            if (p.ContainsKey("/!download-backgrounds")) optDownloadNewImages.Checked = false;
+            if (p.ContainsKey("/!desktop-link")) optCreateDesktopLink.Checked = false;
+            if (p.ContainsKey("/!download-backgrounds-now")) optDownloadImagesNow.Checked = false;
+            if (p.ContainsKey("/!close-window")) optCloseWindowAfterDownload.Checked = false;
+            if (p.ContainsKey("/!start-launcher")) optStartLauncher.Checked = false;
         }
 
         bool CanSkip()
