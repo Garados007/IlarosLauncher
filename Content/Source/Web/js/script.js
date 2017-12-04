@@ -5,7 +5,7 @@
     SetBackground: function () {
         var image = IL.DefaultBackground;
         if (IL.Backgrounds.length > 0) {
-            image = IL.Backgrounds[IL.CurrentBackground];
+            image = "/bg/" + IL.Backgrounds[IL.CurrentBackground];
             IL.CurrentBackground = (IL.CurrentBackground + 1) % IL.Backgrounds.length;
         }
         var cont = $("#background-container");
@@ -32,19 +32,6 @@
                     $(this).parent().children().eq(0).remove();
                 });
         }
-    },
-    FetchStatus: function () {
-        //$.get("/status/", function (data) {
-        //    for (var i = 0; i < data.events.length; ++i) {
-        //        var obj = data.events[i].obj;
-        //        switch (data.events[i].name) {
-        //            case "bg-added": 
-        //                IL.Backgrounds.push(obj);
-        //                break;
-        //        }
-        //    }
-        //    setTimeout(IL.FetchStatus, 1000);
-        //});
     }
 };
 
@@ -60,6 +47,13 @@ $(function () {
     IL.CurrentBackground = Math.floor(Math.random() * IL.Backgrounds.length);
     IL.SetBackground();
     setInterval(IL.SetBackground, 20000); //20s
+    newsEvents.bgdl = (function (old) {
+        return function (data) {
+            if (old != undefined) old(data);
+            if (data.value)
+                IL.Backgrounds.push(data.key);
+        };
+    })(newsEvents.bgdl);
     //Faltbare Blöcke
     $(".fold-header").click(function () {
         $(this).parent().toggleClass("open");
@@ -74,6 +68,4 @@ $(function () {
             } break;
         }
     });
-    //Status abrufen
-    IL.FetchStatus();
 });
