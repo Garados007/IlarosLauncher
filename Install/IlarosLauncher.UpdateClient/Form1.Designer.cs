@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.clientVersion = new System.Windows.Forms.Label();
@@ -76,7 +77,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.stageUpdateTimer = new System.Windows.Forms.Timer();
+            this.stageUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.tablessControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -194,9 +195,11 @@
             this.licensebox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.licensebox.BackColor = System.Drawing.SystemColors.Window;
             this.licensebox.Location = new System.Drawing.Point(8, 6);
             this.licensebox.Multiline = true;
             this.licensebox.Name = "licensebox";
+            this.licensebox.ReadOnly = true;
             this.licensebox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.licensebox.Size = new System.Drawing.Size(750, 307);
             this.licensebox.TabIndex = 0;

@@ -26,6 +26,7 @@ namespace IlarosLauncher.UpdateClient
             SetButtonStates(false, false, false, true);
             this.Load += Form1_Load;
             this.FormClosing += Form1_FormClosing;
+            clientVersion.Text = "Update Client Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
