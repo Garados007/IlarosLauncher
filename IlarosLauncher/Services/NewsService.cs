@@ -170,7 +170,7 @@ namespace IlarosLauncher.Services
             var j = new JsonObject();
             j.Add("id", JsonValue.Create(Id));
             j.Add("type", JsonValue.Create(Type));
-            j.Add("key", Key);
+            j.Add("key", Key ?? JsonValue.Null);
             j.Add("date", JsonValue.Create(Date.ToString("s")));
             j.Add("value", Value);
             return j;

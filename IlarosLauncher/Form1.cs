@@ -35,6 +35,7 @@ namespace IlarosLauncher
             new Task(() =>
             {
                 Server.Start();
+                Modules.ModuleWorker.LaunchWorker();
             }).Start();
         }
     }

@@ -1,0 +1,1 @@
+﻿$.Log($.Net.Ping("google.de"));
