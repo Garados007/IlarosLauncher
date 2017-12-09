@@ -54,14 +54,14 @@ namespace IlarosLauncher.Modules
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                var path = "Modules\\" + string.Join("\\", pathTiles);
+                var path = "Modules\\" + ModuleName + "\\" + string.Join("\\", pathTiles);
                 if (File.Exists(path))
                     return new FileStream(path, FileMode.Open);
             }
 #endif
             var cs = Server.CompactService.FileSystem.FileTable;
             var entry = cs.GetRootEntry("Modules");
-            if (pathTiles.Length == 0) return null;
+            if (pathTiles.Length == 0 || entry == null) return null;
             if (pathTiles[0] != "..") entry = entry.GetChild(ModuleName);
             for (int i = 0; i<pathTiles.Length; ++i)
             {

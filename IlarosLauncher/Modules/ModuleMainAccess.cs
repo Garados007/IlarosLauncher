@@ -52,5 +52,15 @@ namespace IlarosLauncher.Modules
         {
             return HtmlDomParser.ParseHtml(code);
         }
+
+        public void Log(string text)
+        {
+#if DEBUG
+            var file = "Logs\\Modules\\";
+            if (!System.IO.Directory.Exists(file)) System.IO.Directory.CreateDirectory(file);
+            file += ModuleWorker.ModuleName + ".log";
+            System.IO.File.AppendAllText(file, string.Format("[{0:yyyy-MM-dd HH:mm:ss}] {1}{2}", DateTime.Now, text, Environment.NewLine));
+#endif
+        }
     }
 }

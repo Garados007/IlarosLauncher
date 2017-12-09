@@ -78,6 +78,7 @@ namespace IlarosLauncher.Modules
 
         private void GetHeaders()
         {
+            if (webClient.ResponseHeaders == null) return;
             foreach (var h in webClient.ResponseHeaders.AllKeys)
                 Response[h] = webClient.ResponseHeaders[h];
             if (webClient.ResponseHeaders.AllKeys.Contains("Set-Cookie"))
@@ -106,6 +107,7 @@ namespace IlarosLauncher.Modules
             catch (WebException e)
             {
                 Error = e.Message;
+                Status = (int)((HttpWebResponse)e.Response).StatusCode;
             }
             catch (Exception e)
             {
@@ -157,6 +159,7 @@ namespace IlarosLauncher.Modules
             catch (WebException e)
             {
                 Error = e.Message;
+                Status = (int)((HttpWebResponse)e.Response).StatusCode;
             }
             catch (Exception e)
             {
