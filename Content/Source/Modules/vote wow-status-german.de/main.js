@@ -15,10 +15,10 @@ try {
     else {
         $.Net.Request.Referer = "http://www.wow-status-german.de/in.php?id=658&user=" + user;
         code = $.Net.Get("http://www.wow-status-german.de/");
-    }
-    if ($.Net.Error != null) {
-        error = true;
-        $.Log($.Net.Error);
+        if ($.Net.Error != null) {
+            error = true;
+            $.Log($.Net.Error);
+        }
     }
 }
 catch (e) {
