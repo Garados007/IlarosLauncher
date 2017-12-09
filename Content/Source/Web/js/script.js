@@ -59,6 +59,16 @@ $(function () {
         $(this).parent().toggleClass("open");
     });
     //Große Buttons
+    var wowPath;
+    settingsChanged(function (value) {
+        wowPath = value;
+        if (value != null && $(".big-button.wow").attr("data-mode") == "link-wow")
+            $(".big-button.wow").attr("data-mode", "start");
+    }, "wow", "path");
+    if ((wowPath = settings("wow", "path")) != undefined) {
+        if ($(".big-button.wow").attr("data-mode") == "link-wow")
+            $(".big-button.wow").attr("data-mode", "start");
+    }
     $(".big-button.wow").click(function () {
         switch ($(this).attr("data-mode")) {
             case "link-wow": {
@@ -66,6 +76,35 @@ $(function () {
                     settings("wow", "path", path.substring(0, path.lastIndexOf("\\")));
                 });
             } break;
+            case "start": {
+                if ($(".big-button.wow .big-button-low-title").attr("data-mode") == "online")
+                    $.ajax({
+                        async: true,
+                        data: null,
+                        dataType: "text",
+                        error: function () {
+                            alert("Bibliotheksfehler > Code: ajax,run-wow");
+                        },
+                        method: "GET",
+                        success: function (data, status, xhr) {
+
+                        },
+                        url: "/run-wow/"
+                    });
+            } break;
         }
     });
 });
+
+newsEvents.ip = (function (old) {
+    return function (data) {
+        if (old != undefined) old(data);
+        if (data.value == "") {
+            $(".big-button.wow .big-button-low-title").attr("data-mode", "notfound");
+        }
+        else if (data.value != null) {
+            $(".server-ip").html(data.value);
+            $(".big-button.wow .big-button-low-title").attr("data-mode", "online");
+        }
+    };
+})(newsEvents.ip);

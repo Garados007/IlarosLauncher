@@ -18,6 +18,8 @@ mkdir "Web\Backgrounds"
 mkdir "Web\Client"
 mkdir "Web\Client\Tools"
 mkdir "Web\ClientContent"
+mkdir "Web\ClientContent\Web"
+mkdir "Web\ClientContent\Modules"
 mkdir "Web\Update"
 copy /Y "Source\IlarosLauncher.exe" "Web\Client\IlarosLauncher.exe"
 copy /Y "Source\MaxLib.dll" "Web\Client\MaxLib.dll"
@@ -30,6 +32,8 @@ copy /Y "Source\MaxLib.WinForm.dll" "Web\Update\MaxLib.WinForm.dll"
 copy /Y "Source\ilweb.php" "Web\ilweb.php"
 copy /Y "Source\version-manager.php" "Web\version-manager.php"
 copy /Y "Source\mimetypes.ini" "Web\ClientContent\mimetypes.ini"
+xcopy "Source\Web" "Web\ClientContent\Web" /D /E /R /Y
+xcopy "Source\Modules" "Web\ClientContent\Modules" /D /E /R /Y
 
 rem Create Version Infos
 cd Web
