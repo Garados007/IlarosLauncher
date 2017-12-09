@@ -76,6 +76,22 @@ $(function () {
                     settings("wow", "path", path.substring(0, path.lastIndexOf("\\")));
                 });
             } break;
+            case "start": {
+                if ($(".big-button.wow .big-button-low-title").attr("data-mode") == "online")
+                    $.ajax({
+                        async: true,
+                        data: null,
+                        dataType: "text",
+                        error: function () {
+                            alert("Bibliotheksfehler > Code: ajax,run-wow");
+                        },
+                        method: "GET",
+                        success: function (data, status, xhr) {
+
+                        },
+                        url: "/run-wow/"
+                    });
+            } break;
         }
     });
 });

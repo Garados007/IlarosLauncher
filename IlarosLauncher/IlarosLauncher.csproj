@@ -69,6 +69,7 @@
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\ReadyService.cs" />
+    <Compile Include="Services\RunWowService.cs" />
     <Compile Include="Services\ServerScriptService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="WriteAbleStreamFaker.cs" />
