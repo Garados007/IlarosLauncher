@@ -32,7 +32,12 @@ namespace IlarosLauncher.Modules
         {
             await Task.Run(() =>
             {
+#if DEBUG
                 LoadCode("main.js");
+#else
+                try { LoadCode("main.js"); }
+                catch { }
+#endif
             });
         }
 
