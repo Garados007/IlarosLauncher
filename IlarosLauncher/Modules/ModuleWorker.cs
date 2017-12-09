@@ -13,6 +13,9 @@ namespace IlarosLauncher.Modules
 
         public string ModuleName { get; private set; }
 
+        public ModuleMainAccess MainAccess { get; private set; }
+        
+
         public void LoadCode(string path)
         {
 

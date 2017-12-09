@@ -19,9 +19,12 @@ namespace IlarosLauncher.Modules
         {
             ModuleWorker = worker;
             Net = new ModuleNet(worker);
+            Props = new ModuleProps(worker);
         }
 
         public ModuleNet Net { get; private set; }
+
+        public ModuleProps Props { get; private set; }
 
         public void Event(string type, string key, JsValue value)
         {

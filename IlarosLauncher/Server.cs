@@ -23,6 +23,8 @@ namespace IlarosLauncher
 
         public static NewsService News { get; private set; }
 
+        public static string GameServerIP { get; set; }
+
         public static void Start()
         {
             CurrentServer = new WebServer(new WebServerSettings(45789, 5000));

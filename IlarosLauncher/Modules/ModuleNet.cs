@@ -40,6 +40,11 @@ namespace IlarosLauncher.Modules
             };
         }
 
+        ~ModuleNet()
+        {
+            webClient.Dispose();
+        }
+
         private MyWebClient webClient;
 
         public Dictionary<string, string> Cookie { get; private set; }
