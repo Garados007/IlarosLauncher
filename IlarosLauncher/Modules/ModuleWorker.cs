@@ -11,6 +11,8 @@ namespace IlarosLauncher.Modules
     {
         public Engine Engine { get; private set; }
 
+        public string ModuleName { get; private set; }
+
         public void LoadCode(string path)
         {
 

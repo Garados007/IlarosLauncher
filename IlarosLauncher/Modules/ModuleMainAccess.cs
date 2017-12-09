@@ -15,6 +15,14 @@ namespace IlarosLauncher.Modules
     {
         internal ModuleWorker ModuleWorker { get; private set; }
 
+        public ModuleMainAccess(ModuleWorker worker)
+        {
+            ModuleWorker = worker;
+            Net = new ModuleNet(worker);
+        }
+
+        public ModuleNet Net { get; private set; }
+
         public void Event(string type, string key, JsValue value)
         {
             if (type == null) throw new ArgumentNullException("type");

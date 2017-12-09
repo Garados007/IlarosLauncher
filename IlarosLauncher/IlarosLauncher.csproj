@@ -58,6 +58,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\ModuleMainAccess.cs" />
+    <Compile Include="Modules\ModuleNet.cs" />
     <Compile Include="Modules\ModuleWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
