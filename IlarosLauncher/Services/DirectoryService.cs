@@ -204,7 +204,7 @@ namespace IlarosLauncher.Services
                 case ".tiff":
                 case ".ico": filter.Add("img"); break;
             }
-            if (file.Name == "WoW.exe") filter.Add("wow");
+            if (file.Name == "Wow.exe") filter.Add("wow");
             return filter.ToArray();
         }
 

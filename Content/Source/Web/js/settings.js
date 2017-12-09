@@ -1,4 +1,6 @@
-﻿(function (ctx) {
+﻿//dept: news.js
+
+(function (ctx) {
     var cacheData = {};
     var settingsReady = false;
     var groupHandler = {};
@@ -14,6 +16,17 @@
         success: function (data, status, xhr) {
             cacheData = data;
             settingsReady = true;
+            for (var g in groupHandler)
+                if (data[g] != undefined)
+                    for (var k in groupHandler[g])
+                        for (var n in data[g])
+                            groupHandler[g][k](n, data[g][n]);
+            for (var g in settingHandler)
+                if (data[g] != undefined)
+                    for (var n in settingHandler[g])
+                        if (data[g][n] != undefined)
+                            for (var k in settingHandler[g][n])
+                                settingHandler[g][n][k](data[g][n]);
         },
         url: "/settings/"
     });

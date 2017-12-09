@@ -59,6 +59,16 @@ $(function () {
         $(this).parent().toggleClass("open");
     });
     //Große Buttons
+    var wowPath;
+    settingsChanged(function (value) {
+        wowPath = value;
+        if (value != null && $(".big-button.wow").attr("data-mode") == "link-wow")
+            $(".big-button.wow").attr("data-mode", "start");
+    }, "wow", "path");
+    if ((wowPath = settings("wow", "path")) != undefined) {
+        if ($(".big-button.wow").attr("data-mode") == "link-wow")
+            $(".big-button.wow").attr("data-mode", "start");
+    }
     $(".big-button.wow").click(function () {
         switch ($(this).attr("data-mode")) {
             case "link-wow": {
@@ -69,3 +79,16 @@ $(function () {
         }
     });
 });
+
+newsEvents.ip = (function (old) {
+    return function (data) {
+        if (old != undefined) old(data);
+        if (data.value == "") {
+            $(".big-button.wow .big-button-low-title").attr("data-mode", "notfound");
+        }
+        else if (data.value != null) {
+            $(".server-ip").html(data.value);
+            $(".big-button.wow .big-button-low-title").attr("data-mode", "online");
+        }
+    };
+})(newsEvents.ip);

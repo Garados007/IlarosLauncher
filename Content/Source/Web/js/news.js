@@ -34,8 +34,10 @@
         });
     }
 
-    setInterval(loop, 500);
-    loop();
+    $(function () {
+        setInterval(loop, 500);
+        loop();
+    });
 
     ctx.newsEvents = eventHandler;
 })(this);
