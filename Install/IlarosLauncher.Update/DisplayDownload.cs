@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.Win32;
@@ -120,9 +122,9 @@ namespace IlarosLauncher.Update
         static string mainArgs;
 
         [STAThread]
-        public static void Main(string args)
+        public static void Main(string[] args)
         {
-            mainArgs = args;
+            mainArgs = string.Join(" ", args.ToList().ConvertAll((a) => "\"" + a + "\""));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DisplayDownload());
