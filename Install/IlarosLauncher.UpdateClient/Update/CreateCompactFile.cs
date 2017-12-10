@@ -39,8 +39,8 @@ namespace IlarosLauncher.UpdateClient.Update
                 var target = ds.LauncherPath + "\\Content\\Asset.csf";
                 var builder = ds.LauncherPath + "\\Tools\\compacthelper.exe";
                 if (!File.Exists(builder)) builder = ds.UseTemp ? 
-                        Environment.ExpandEnvironmentVariables("%TEMP%\\IlarosLauncher\\Downloads\\Client\\compacthelper.exe") :
-                    ds.LauncherPath + "\\Temp\\Downloads\\Client\\compacthelper.exe";
+                        Environment.ExpandEnvironmentVariables("%TEMP%\\IlarosLauncher\\Downloads\\Client\\Tools\\compacthelper.exe") :
+                    ds.LauncherPath + "\\Temp\\Downloads\\Client\\Tools\\compacthelper.exe";
 
                 var fi = new FileInfo(target);
                 if (!fi.Directory.Exists) fi.Directory.Create();
