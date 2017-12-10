@@ -32,7 +32,7 @@ namespace compacthelper
             }
             if (!(File.Exists(target) ? OpenTarget() : CreateTarget())) return 2;
             Console.WriteLine("Übetrage Dateien und Ordner ...");
-            ReadDirectory(new DirectoryInfo(source), null);
+            ReadRoot(new DirectoryInfo(source));
             Console.WriteLine("Übertragen abgeschlossen");
             if (delete)
             {
@@ -48,20 +48,27 @@ namespace compacthelper
             return 0;
         }
 
-
+        static void ReadRoot(DirectoryInfo di)
+        {
+            foreach (var d in di.EnumerateDirectories())
+                ReadDirectory(d, null);
+            foreach (var f in di.EnumerateFiles())
+                ReadFile(f, null);
+        }
 
         static void ReadDirectory(DirectoryInfo di, CompactEntry entry)
         {
+            var child = entry == null ? compact.FileTable.GetRootEntry(di.Name) : entry.GetChild(di.Name);
+            if (child == null)
+                child = compact.FileTable.CreateEntry(di.Name, CompactEntryFlags.DirectoryMode, entry);
+
             foreach (var sd in di.GetDirectories())
             {
-                var child = entry == null ? compact.FileTable.GetRootEntry(di.Name) : entry.GetChild(di.Name);
-                if (child == null)
-                    child = compact.FileTable.CreateEntry(di.Name, CompactEntryFlags.DirectoryMode, entry);
                 ReadDirectory(sd, child);
             }
             foreach (var fi in di.GetFiles())
             {
-                ReadFile(fi, entry);
+                ReadFile(fi, child);
             }
         }
 
