@@ -47,10 +47,11 @@ namespace IlarosLauncher.Modules
             var s = LoadCodeStream(pt);
             if (s!= null)
                 using (s)
-                using (var r = new StreamReader(s))
+                using (var r = new BinaryReader(s))
                 {
-                    var c = r.ReadToEnd();
-                    Engine.Execute(c);
+                    var c = r.ReadBytes((int)s.Length);
+                    var code = Encoding.UTF8.GetString(c);
+                    Engine.Execute(code);
                 }
         }
 
