@@ -22,13 +22,14 @@ namespace IlarosLauncher.Update
         {
             getTempPath();
             tempPath = Environment.ExpandEnvironmentVariables(tempPath);
-            if (!Application.StartupPath.StartsWith(tempPath))
+            var execPath = tempPath + "\\Path";
+            if (!Application.StartupPath.StartsWith(execPath))
             {
-                if (!Directory.Exists(tempPath)) Directory.CreateDirectory(tempPath);
-                File.Copy(Application.ExecutablePath, tempPath + "\\IlarosLauncher.Update.exe", true);
+                if (!Directory.Exists(execPath)) Directory.CreateDirectory(execPath);
+                File.Copy(Application.ExecutablePath, execPath + "\\IlarosLauncher.Update.exe", true);
                 Process.Start(new ProcessStartInfo()
                 {
-                    FileName = tempPath + "\\IlarosLauncher.Update.exe",
+                    FileName = execPath + "\\IlarosLauncher.Update.exe",
                     WorkingDirectory = tempPath,
                 });
                 Close();
