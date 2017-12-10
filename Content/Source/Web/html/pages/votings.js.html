@@ -1,0 +1,25 @@
+﻿<?JS
+//Hier sind alle Dienstanbieter für Votings eingetragen.
+//Falls in der URL der Nutzername eingetragen werden soll, so muss an der Stelle ein {0} hin.
+var voteList = [
+  { url: "http://topg.org/wow-private-servers/in-407139",            img: "http://topg.org/topg.gif" },
+  { url: "http://www.top100arena.com/in.asp?id=87694&incentive={0}", img: "http://www.top100arena.com/hit.asp?id=87694&c=WoW&t=2" }
+];
+
+?>
+<div class="vote-bar">
+    <div id="username-selection2" class="username-selection">
+    
+    </div>
+    <div class="vote-bar-links">
+<?JS
+for (var k in voteList) {
+?>
+        <div class="vote-element ext-url ext-user" data-url="<?JS $.w(voteList[k].url); ?>">
+            <img src="<?JS $.w(voteList[k].img); ?>" />
+        </div>
+<?JS
+}
+?>
+    </div>
+</div>
