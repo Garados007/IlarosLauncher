@@ -163,6 +163,28 @@ $(function () {
             } break;
         }
     });
+    //Klickbare Links
+    var user = "betauser";
+    $(".ext-url").click(function () {
+        var url = $(this).attr("data-url");
+        if ($(this).hasClass("ext-user"))
+            url = url.replace(/\{0\}/, user);
+        $.ajax({
+            async: true,
+            data: {
+                url: url
+            },
+            dataType: "text",
+            error: function () {
+                alert("Bibliotheksfehler > Code: ajax,run-url,url=" + url);
+            },
+            method: "GET",
+            success: function (data, status, xhr) {
+
+            },
+            url: "/run-url/"
+        })
+    });
 });
 
 newsEvents.ip = (function (old) {

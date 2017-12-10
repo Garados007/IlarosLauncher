@@ -22,7 +22,7 @@ namespace IlarosLauncher.Services
         public override void ProgressTask(WebProgressTask task)
         {
             var url = task.Document.RequestHeader.Location.GetParameter["url"];
-            if (!url.StartsWith("http://") || !url.StartsWith("https://")) return;
+            if (!url.StartsWith("http://") && !url.StartsWith("https://")) return;
             System.Diagnostics.Process.Start(url);
         }
     }

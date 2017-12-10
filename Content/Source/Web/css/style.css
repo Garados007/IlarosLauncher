@@ -255,3 +255,8 @@ footer {
         background-size: 100% auto;
     }
 }
+.vote-element {
+    display: inline;
+    cursor: pointer;
+    margin-right: 0.5em;
+}
