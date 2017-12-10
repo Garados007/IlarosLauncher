@@ -6,58 +6,70 @@
         Hier kannst du dir einen Account auf den Server erstellen, falls du noch 
         keinen hast:
     </div>
-    <div class="account-table">
-        <div class="account-tr">
-            <div class="account-th">
+    <table class="account-table">
+        <tr class="account-tr">
+            <td class="account-th">
                 Nutzername:
-            </div>
-            <div class="account-td">
-                <input name="accountname" type="text" />
-            </div>
-        </div>
-        <div class="account-tr">
-            <div class="account-th">
+            </td>
+            <td class="account-td">
+                <input id="accountname" name="accountname" type="text" onchange="return IL.Account.checkForErrors()" onkeydown="IL.Account.checkForErrors()" />
+            </td>
+        </tr>
+        <tr class="account-tr error">
+            <td class="in-err" colspan="2"></td>
+        </tr>
+        <tr class="account-tr">
+            <td class="account-th">
                 Passwort:
-            </div>
-            <div class="account-td">
-                <input name="password" type="password" />
-            </div>
-        </div>
-        <div class="account-tr">
-            <div class="account-th">
+            </td>
+            <td class="account-td">
+                <input id="password" name="password" type="password" onchange="return IL.Account.checkForErrors()" onkeydown="IL.Account.checkForErrors()" />
+            </td>
+        </tr>
+        <tr class="account-tr error">
+            <td class="in-err" colspan="2"></td>
+        </tr>
+        <tr class="account-tr">
+            <td class="account-th">
                 Passwort bestätigen:
-            </div>
-            <div class="account-td">
-                <input name="password2" type="password" />
-            </div>
-        </div>
-        <div class="account-tr">
-            <div class="account-th">
+            </td>
+            <td class="account-td">
+                <input id="password2" name="password2" type="password" onchange="return IL.Account.checkForErrors()" onkeydown="IL.Account.checkForErrors()" />
+            </td>
+        </tr>
+        <tr class="account-tr error">
+            <td class="in-err" colspan="2"></td>
+        </tr>
+        <tr class="account-tr">
+            <td class="account-th">
                 Email:
-            </div>
-            <div class="account-td">
-                <input name="email" type="email" />
-            </div>
-        </div>
-        <div class="account-tr">
-            <div class="account-th">
+            </td>
+            <td class="account-td">
+                <input id="email" name="email" type="email" onchange="return IL.Account.checkForErrors()" onkeydown="IL.Account.checkForErrors(); return true;" />
+            </td>
+        </tr>
+        <tr class="account-tr error">
+            <td class="in-err" colspan="2"></td>
+        </tr>
+        <tr class="account-tr">
+            <td class="account-th">
                 WoW Erweiterung:
-            </div>
-            <div class="account-td">
-                <select name="expansion">
+            </td>
+            <td class="account-td">
+                <select id="expansion" name="expansion">
                     <option value="0">Vanilla</option>
                     <option value="1">The Burning Crusade</option>
                     <option value="2" selected="selected">Wrath of the Lich King</option>
                 </select>
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+    </table>
     <div class="account-desc">
         Die Registrierung ist für dich kostenlos. Mit dem Bestätigen akzeptierst
         du auch die Bestimmungen und Regelungen des Servers. Nähres erfährst du
         <span class="extern" data-url="http://wow.ilaros.de/?site=fragen">hier</span>.
     </div>
-    <div class="account-submit">
+    <div class="account-submit" onclick="return IL.Account.createAccount()">
         Registrieren
     </div>
 </form>

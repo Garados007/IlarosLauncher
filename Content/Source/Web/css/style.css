@@ -217,6 +217,11 @@ footer {
 .account-submit:hover {
     background-color: rgba(139, 255, 138, 0.50);
 }
+.in-err {
+    color: #ff9797;
+    font-size: 0.9em;
+    text-shadow: 0.1em 0.1em 0.2em black, -0.1em -0.1em 0.2em black, 0.1em -0.1em 0.2em black, -0.1em 0.1em 0.2em black;
+}
 
 .big-button-display-group,
 .server-status,
