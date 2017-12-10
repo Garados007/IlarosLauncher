@@ -23,11 +23,13 @@ namespace IlarosLauncher.UpdateClient
         public static string ImgCountLink;
         public static string ImgFileLink;
 
+        public static OptionsLoader ConfigIni;
+
         public static bool LoadFromIni()
         {
             try
             {
-                var l = new OptionsLoader("config.ini", true);
+                var l = ConfigIni = new OptionsLoader("config.ini", true);
                 ServerType = l[0].Options.GetString("ServerType");
                 ServerUrl = l[0].Options.GetString("ServerUrl");
                 ImgSourceType = l[0].Options.GetString("ImgSourceType");

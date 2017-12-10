@@ -44,7 +44,9 @@ namespace IlarosLauncher.UpdateClient.Update
 
                 var fi = new FileInfo(target);
                 if (!fi.Directory.Exists) fi.Directory.Create();
-                
+
+                File.WriteAllText(source + "\\settings.ini", DownloadSettings.ConfigIni.Export());
+
                 var pr = new Process
                 {
                     StartInfo = new ProcessStartInfo()
