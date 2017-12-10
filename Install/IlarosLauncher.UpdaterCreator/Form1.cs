@@ -122,6 +122,7 @@ namespace IlarosLauncher.UpdaterCreator
                 cp.ReferencedAssemblies.Add(typeof(Component).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(System.IO.Compression.ZipFile).Assembly.Location);
                 cp.ReferencedAssemblies.Add(typeof(System.IO.Compression.ZipArchive).Assembly.Location);
+                cp.ReferencedAssemblies.Add(typeof(Enumerable).Assembly.Location);
 
                 var result = mcp.CompileAssemblyFromFile(cp, "Content\\DisplayDownload.cs", "Content\\DownloadSettings.cs");
                 if (result.Errors.HasErrors)
