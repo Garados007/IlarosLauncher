@@ -40,7 +40,7 @@ namespace IlarosLauncher.Modules
                             .Stringify(value, new JsValue[] { value.AsObject() })); break;
                     case Types.String: val = JsonValue.Create(value.AsString()); break;
                 }
-            Server.News.Add(new Services.NewsEntry(type, JsonValue.Create(key), val));
+            IlarosLauncher.Server.News.Add(new Services.NewsEntry(type, JsonValue.Create(key), val));
         }
 
         public void Load(string file)

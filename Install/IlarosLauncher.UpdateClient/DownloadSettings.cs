@@ -23,6 +23,8 @@ namespace IlarosLauncher.UpdateClient
         public static string ImgCountLink;
         public static string ImgFileLink;
 
+        public static string PackageVersion;
+
         public static OptionsLoader ConfigIni;
 
         public static bool LoadFromIni()

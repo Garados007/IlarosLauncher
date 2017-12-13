@@ -70,7 +70,9 @@ namespace IlarosLauncher.UpdateClient.Update
                     string vi = null;
                     if (File.Exists(vf)) vi = File.ReadAllText(vf);
                     var code = wc.DownloadString(DownloadSettings.ServerUrl + "?mode=changes" + (vi == null ? "" : "&version=" + vi));
-                    return new JsonParser().ParseSmart(code);
+                    var result = new JsonParser().ParseSmart(code);
+                    DownloadSettings.PackageVersion = result["version"].GetValue<string>();
+                    return result;
                 }
             }
         }
