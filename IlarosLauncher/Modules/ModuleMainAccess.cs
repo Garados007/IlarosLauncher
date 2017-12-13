@@ -65,7 +65,8 @@ namespace IlarosLauncher.Modules
 
         public JsValue Server(string group, string name)
         {
-            var g = IlarosLauncher.Server.ServerSettings.Groups[group];
+            var g = group == null ? IlarosLauncher.Server.ServerSettings[0] :
+                IlarosLauncher.Server.ServerSettings[group];
             var v = g?.Options.FindName(name);
             if (v == null) return JsValue.Undefined;
             try { return new JsValue(v.GetDouble()); }
@@ -79,7 +80,8 @@ namespace IlarosLauncher.Modules
 
         public JsValue User(string group, string name)
         {
-            var g = IlarosLauncher.Server.UserSettings.UserSettings.Groups[group];
+            var g = group == null ? IlarosLauncher.Server.UserSettings.UserSettings[0] :
+                IlarosLauncher.Server.UserSettings.UserSettings[group];
             var v = g?.Options.FindName(name);
             if (v == null) return JsValue.Undefined;
             try { return new JsValue(v.GetDouble()); }

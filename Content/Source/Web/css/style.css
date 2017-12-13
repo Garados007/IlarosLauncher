@@ -94,6 +94,10 @@ footer {
     left: 1.875em;
     right: unset;
 }
+.new-version {
+    color: #b90000;
+    margin-left: 2em;
+}
 
 .big-button-container {
     display: table;

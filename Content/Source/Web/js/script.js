@@ -199,3 +199,14 @@ newsEvents.ip = (function (old) {
         }
     };
 })(newsEvents.ip);
+
+newsEvents.update = (function (old) {
+    return function (data) {
+        if (old != undefined) old(data);
+        if (data.value != false) {
+            var v = $(".footer-version");
+            v.html(v.html() + '<span class="new-version">Neue Version ' +
+                data.value + ' verfügbar!</span>');
+        }
+    };
+})(newsEvents.update);
