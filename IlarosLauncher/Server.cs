@@ -25,8 +25,11 @@ namespace IlarosLauncher
 
         public static string GameServerIP { get; set; }
 
+        public static string PackageVersion { get; private set; }
+
         public static void Start()
         {
+            PackageVersion = File.ReadAllText("package.version");
             CurrentServer = new WebServer(new WebServerSettings(45789, 5000));
             CurrentServer.Settings.IPFilter = System.Net.IPAddress.Loopback;
 #if DEBUG

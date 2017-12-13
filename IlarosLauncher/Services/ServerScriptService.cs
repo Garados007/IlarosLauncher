@@ -59,18 +59,23 @@ namespace IlarosLauncher.Services
         public ExtendedServerScriptObject(WebServer server) : base(server)
         {
         }
+
+        static string launcherVersion = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
+        public string LauncherVersion => launcherVersion;
         
-        public string Version(string key)
-        {
-            if (string.IsNullOrEmpty(key)) return "";
-            const string supported = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-_ ";
-            for (var i = 0; i < key.Length; ++i)
-                if (!supported.Contains(key[i])) return "";
-            var file = System.Reflection.Assembly.GetAssembly(GetType()).Location;
-            file = new FileInfo(file).Directory.FullName + "\\Versions\\" + key + ".version";
-            if (!File.Exists(file)) return "";
-            else return File.ReadAllText(file);
-        }
+        public string PackageVersion => IlarosLauncher.Server.PackageVersion;
+        
+        //public string Version(string key)
+        //{
+        //    if (string.IsNullOrEmpty(key)) return "";
+        //    const string supported = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-_ ";
+        //    for (var i = 0; i < key.Length; ++i)
+        //        if (!supported.Contains(key[i])) return "";
+        //    var file = System.Reflection.Assembly.GetAssembly(GetType()).Location;
+        //    file = new FileInfo(file).Directory.FullName + "\\" + key + ".version";
+        //    if (!File.Exists(file)) return "";
+        //    else return File.ReadAllText(file);
+        //}
         
         //public string GetBackgroundImages()
         //{

@@ -25,5 +25,7 @@ namespace IlarosLauncher.Modules
                 Server.News.Add(new Services.NewsEntry("ip", null, string.IsNullOrEmpty(value) ? JsonValue.Create(false) : JsonValue.Create(value)));
             }
         }
+
+        public string Version => Server.PackageVersion;
     }
 }
