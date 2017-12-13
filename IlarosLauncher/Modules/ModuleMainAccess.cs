@@ -62,5 +62,33 @@ namespace IlarosLauncher.Modules
             System.IO.File.AppendAllText(file, string.Format("[{0:yyyy-MM-dd HH:mm:ss}] {1}{2}", DateTime.Now, text, Environment.NewLine));
 #endif
         }
+
+        public JsValue Server(string group, string name)
+        {
+            var g = IlarosLauncher.Server.ServerSettings.Groups[group];
+            var v = g?.Options.FindName(name);
+            if (v == null) return JsValue.Undefined;
+            try { return new JsValue(v.GetDouble()); }
+            catch { }
+            try { return new JsValue(v.GetBool()); }
+            catch { }
+            try { return new JsValue(v.GetString()); }
+            catch { }
+            return JsValue.Null;
+        }
+
+        public JsValue User(string group, string name)
+        {
+            var g = IlarosLauncher.Server.UserSettings.UserSettings.Groups[group];
+            var v = g?.Options.FindName(name);
+            if (v == null) return JsValue.Undefined;
+            try { return new JsValue(v.GetDouble()); }
+            catch { }
+            try { return new JsValue(v.GetBool()); }
+            catch { }
+            try { return new JsValue(v.GetString()); }
+            catch { }
+            return JsValue.Null;
+        }
     }
 }
