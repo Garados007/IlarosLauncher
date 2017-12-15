@@ -5,6 +5,7 @@
     var settingsReady = false;
     var groupHandler = {};
     var settingHandler = {};
+    var initQueue = [];
     $.ajax({
         async: true,
         data: {},
@@ -27,6 +28,8 @@
                         if (data[g][n] != undefined)
                             for (var k in settingHandler[g][n])
                                 settingHandler[g][n][k](data[g][n]);
+            for (var k in initQueue)
+                initQueue[k]();
         },
         url: "/settings/"
     });
@@ -41,12 +44,17 @@
     }
 
     //settings()
+    //settings(function)
     //settings(group, name)
     //settings(group, name, value)
     ctx.settings = function (group, name, value) {
         if (arguments.length == 0)
             return settingsReady;
-        if (arguments.length == 2) {
+        else if (arguments.length == 1) {
+            initQueue.push(group);
+            if (settingsReady) group();
+        }
+        else if (arguments.length == 2) {
             if (cacheData[group] != undefined)
                 return cacheData[group][name];
             else return undefined;
@@ -54,7 +62,7 @@
         else if (arguments.length == 3) {
             var type = typeof value;
             var isFloat = type == "number";
-            var isInt = isFloat && Number.isInteger(value);
+            var isInt = isFloat && Math.round(value) == value;
             var isBool = type == "boolean";
             var isString = type == "string";
             if (!(isFloat || isInt || isBool || isString))
