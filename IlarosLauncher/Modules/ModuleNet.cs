@@ -107,7 +107,8 @@ namespace IlarosLauncher.Modules
             catch (WebException e)
             {
                 Error = e.Message;
-                Status = (int)((HttpWebResponse)e.Response).StatusCode;
+                if (e.Response != null)
+                    Status = (int)((HttpWebResponse)e.Response).StatusCode;
             }
             catch (Exception e)
             {

@@ -101,6 +101,76 @@
                 }
             }
         };
+    })(),
+    Names: (function () {
+        //names{id}.{"name", "id", "changes": [].{"time","name"} }
+        var names = {};
+        var currentId = null;
+        var namelist = [];
+        var addBlock = function (entry) {
+            var block = $("<div/>");
+            block.addClass("name-button");
+            block.attr("data-id", entry.id);
+            block.appendTo($(".name-list"));
+            block.html('<input type="text" value="' + entry.name + '" />' +
+                '<div class="name-fnc-current' + (currentId == entry.id ? ' active' : '') + '"></div>' +
+                '<div class="name-fnc-del"></div>');
+            block.find(".name-fnc-current").click(function () {
+                if (currentId != entry.id) {
+                    currentId = entry.id;
+                    $(".name-fnc-current.active").removeClass("active");
+                    $(this).addClass("active");
+                    settings("names", "currentId", currentId);
+                }
+            });
+            block.find(".name-fnc-del").click(function () {
+                block.remove();
+                names[entry.id] = undefined;
+                var ind = namelist.indexOf(entry.id * 1);
+                if (ind != -1) namelist.splice(ind, 1);
+                currentId = namelist.length > 0 ? namelist[0] : null;
+                settings("names", "namelist", namelist.length == 0 ? null : JSON.stringify(namelist));
+                settings("names", "currentId", currentId);
+                settings("names", "name[" + entry.id + "]", null);
+                if (currentId != null)
+                    $(".name-button[data-id=\"" + currentId + "\"]").find(".name-fnc-current").addClass("active");
+            });
+        };
+        settings(function () {
+            currentId = settings("names", "currentId");
+            var nl = settings("names", "namelist");
+            if (nl == undefined) namelist = [];
+            else namelist = JSON.parse(nl);
+            for (var k in namelist)
+            {
+                var id = namelist[k];
+                names[id] = {
+                    name: settings("names", "name[" + id + "]"),
+                    id: id,
+                    changes: []
+                };
+                addBlock(names[id]);
+            }
+        });
+        return {
+            addName: function (name) {
+                var id = 0;
+                for (; names[id] != undefined; id++);
+                names[id] = {
+                    name: name,
+                    id: id,
+                    changes: []
+                };
+                settings("names", "name[" + id + "]", name);
+                namelist.push(id);
+                settings("names", "namelist", JSON.stringify(namelist));
+                if (currentId == null) {
+                    currentId = id;
+                    settings("names", "currentId", currentId);
+                }
+                addBlock(names[id]);
+            }
+        };
     })()
 };
 

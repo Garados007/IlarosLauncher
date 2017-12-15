@@ -264,3 +264,51 @@ footer {
     cursor: pointer;
     margin-right: 0.5em;
 }
+.name-button {
+    margin: 0.2em;
+    border: 2px solid gray;
+    border-radius: 0.3em;
+    padding-right: 5em;
+    position: relative;
+}
+.name-button > input {
+    margin: 0;
+    padding: 0.3em 0.75em;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.9em;
+}
+.name-fnc-current, .name-fnc-del {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 1.7em;
+    height: 1.7em;
+    right: 0.3em;
+    cursor: pointer;
+    background-image: url("/Web/img/Graphicrating-Koloria-Trash-Delete.ico");
+    background-size: 80% 80%;
+    background-position: 10% 10%;
+    background-repeat: no-repeat;
+}
+.name-fnc-current {
+    right: 2.3em;
+    background-image: url("/Web/img/Icons8-Windows-8-Messaging-Outline-Star.ico");
+}
+.name-fnc-current.active {
+    background-image: url("/Web/img/Icons8-Windows-8-Messaging-Star.ico");
+}
+.name-button-add {
+    background-color: rgba(255,255,255,0.19);
+    text-align: center;
+    font-size: 0.9em;
+    padding: 0.3em;
+    cursor: pointer;
+}
+.name-button-add:hover {
+    background-color: rgba(255,255,255,0.40);
+}
