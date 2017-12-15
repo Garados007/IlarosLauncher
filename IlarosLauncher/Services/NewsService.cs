@@ -114,7 +114,7 @@ namespace IlarosLauncher.Services
             if (list.Contains(entry))
             {
                 var other = list.Find((e) => e == entry);
-                if (other.Value.ArgumentString != entry.Value.ArgumentString)
+                if (other.Value?.ArgumentString != entry.Value?.ArgumentString)
                 {
                     list.Remove(other);
                     list.Add(entry);

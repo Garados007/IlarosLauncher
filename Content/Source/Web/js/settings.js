@@ -76,7 +76,7 @@
                     data: {
                         group: group,
                         setting: name,
-                        value: value,
+                        value: isNull ? "null" : value,
                         type: isNull ? "null" : isString ? "string" : isBool? "bool" :
                             isInt ? "int" : "float"
                     },

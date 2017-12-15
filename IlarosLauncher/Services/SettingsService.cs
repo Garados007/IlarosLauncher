@@ -26,10 +26,11 @@ namespace IlarosLauncher.Services
 
         public void Save()
         {
-            UserSettings.Export(path + "\\settings.ini");
+            lock (UserSettings)
+                UserSettings.Export(path + "\\settings.ini");
         }
 
-        static string[] types = new[] { "int", "float", "bool", "string" };
+        static string[] types = new[] { "int", "float", "bool", "string", "null" };
         public override bool CanWorkWith(WebProgressTask task)
         {
             var header = task.Document.RequestHeader;
@@ -106,6 +107,9 @@ namespace IlarosLauncher.Services
                         break;
                     case "null":
                         g.Options.Remove(s);
+                        if (g.Options.Count + g.Attributes.Count == 0 && g != UserSettings[0])
+                            UserSettings.Groups.Remove(g);
+                        val = JsonValue.Null;
                         break;
                 }
                 var news = new JsonArray
@@ -115,6 +119,11 @@ namespace IlarosLauncher.Services
                 };
                 Server.News.Add(new NewsEntry("uset", JsonValue.Create(news.ToString(JsonParser.SingleLine)), val));
                 Save();
+                task.Document.DataSources.Add(new HttpStringDataSource("")
+                {
+                    MimeType = MimeTypes.TextPlain,
+                    TransferCompleteData = true
+                });
             }
         }
     }
