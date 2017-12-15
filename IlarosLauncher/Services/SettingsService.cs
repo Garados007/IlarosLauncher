@@ -104,6 +104,9 @@ namespace IlarosLauncher.Services
                         s.SetValue(post["value"]);
                         val = JsonValue.Create(post["value"]);
                         break;
+                    case "null":
+                        g.Options.Remove(s);
+                        break;
                 }
                 var news = new JsonArray
                 {

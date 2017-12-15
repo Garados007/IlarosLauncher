@@ -61,11 +61,12 @@
         }
         else if (arguments.length == 3) {
             var type = typeof value;
+            var isNull = value === null || value === undefined;
             var isFloat = type == "number";
             var isInt = isFloat && Math.round(value) == value;
             var isBool = type == "boolean";
             var isString = type == "string";
-            if (!(isFloat || isInt || isBool || isString))
+            if (!(isFloat || isInt || isBool || isString || isNull))
                 throw Error("Wrong value type");
             if (cacheData[group] == undefined)
                 cacheData[group] = {};
@@ -76,7 +77,7 @@
                         group: group,
                         setting: name,
                         value: value,
-                        type: isString ? "string" : isBool ? "bool" :
+                        type: isNull ? "null" : isString ? "string" : isBool? "bool" :
                             isInt ? "int" : "float"
                     },
                     dataType: "text",
