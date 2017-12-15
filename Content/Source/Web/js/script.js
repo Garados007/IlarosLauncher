@@ -130,11 +130,21 @@
                 if (ind != -1) namelist.splice(ind, 1);
                 currentId = namelist.length > 0 ? namelist[0] : null;
                 settings("names", "namelist", namelist.length == 0 ? null : JSON.stringify(namelist));
-                settings("names", "currentId", currentId);
                 settings("names", "name[" + entry.id + "]", null);
                 if (currentId != null)
                     $(".name-button[data-id=\"" + currentId + "\"]").find(".name-fnc-current").addClass("active");
+                settings("names", "currentId", currentId);
             });
+            var change = function () {
+                var val = $(this).val();
+                entry.changes.push({
+                    time: new Date().value,
+                    name: val
+                });
+                entry.name = val;
+                settings("names", "name[" + entry.id + "]", val);
+            };
+            block.find("input").change(change).keypress(change).keydown(change).keyup(change);
         };
         settings(function () {
             currentId = settings("names", "currentId");
@@ -151,6 +161,51 @@
                 };
                 addBlock(names[id]);
             }
+
+            settingsChanged(function (name, value) {
+                if (name == "namelist") {
+                    namelist = value == null ? [] : JSON.parse(value);
+                }
+                else if (name == "currentId") {
+                    currentId = value;
+                    $(".name-fnc-current.active").removeClass("active");
+                    $(".name-button[data-id=\"" + currentId + "\"]").find(".name-fnc-current").addClass("active");
+                }
+                else {
+                    var id = name.substring("name[".length, name.length - 1) * 1;
+                    if (names[id] == undefined) {
+                        names[id] = {
+                            name: value,
+                            id: id,
+                            changes: [{
+                                time: new Date().value,
+                                name: value
+                            }]
+                        };
+                        addBlock(names[id]);
+                    }
+                    else {
+                        var entry = names[id];
+                        var now = new Date().value;
+                        while (entry.changes.length > 0 && now - entry.changes[0].time >= 2000)
+                            entry.changes.shift();
+                        var exist = false;
+                        for (var k in entry.changes)
+                            if (entry.changes[k].name == value) {
+                                exist = true;
+                                break;
+                            }
+                        if (!exist) {
+                            $(".name-button[data-id=\"" + id + "\"]").find("input").val(value);
+                            entry.changes.push({
+                                name: value,
+                                time: now
+                            });
+                            entry.name = value;
+                        }
+                    }
+                }
+            }, "names");
         });
         return {
             addName: function (name) {
