@@ -107,6 +107,7 @@
         var names = {};
         var currentId = null;
         var namelist = [];
+        var select;
         var addBlock = function (entry) {
             var block = $("<div/>");
             block.addClass("name-button");
@@ -142,11 +143,20 @@
                     name: val
                 });
                 entry.name = val;
+                select.find("option[data-id=\"" + entry.id + "\"]").text(val);
                 settings("names", "name[" + entry.id + "]", val);
             };
             block.find("input").change(change).keypress(change).keydown(change).keyup(change);
+
+            var option = $("<option/>");
+            option.appendTo(select);
+            option.val(entry.id);
+            option.prop("selected", entry.id == currentId);
+            option.text(entry.name);
+            option.attr("data-id", entry.id);
         };
         settings(function () {
+            select = $(".username-selection").find("select");
             currentId = settings("names", "currentId");
             var nl = settings("names", "namelist");
             if (nl == undefined) namelist = [];
@@ -160,7 +170,15 @@
                     changes: []
                 };
                 addBlock(names[id]);
+
             }
+            select.change(function () {
+                var id = $(this).val();
+                if (currentId != id) {
+                    currentId = id;
+                    settings("names", "currentId", currentId);
+                }
+            });
 
             settingsChanged(function (name, value) {
                 if (name == "namelist") {
@@ -168,6 +186,7 @@
                 }
                 else if (name == "currentId") {
                     currentId = value;
+                    select.val(value);
                     $(".name-fnc-current.active").removeClass("active");
                     $(".name-button[data-id=\"" + currentId + "\"]").find(".name-fnc-current").addClass("active");
                 }
@@ -197,6 +216,7 @@
                             }
                         if (!exist) {
                             $(".name-button[data-id=\"" + id + "\"]").find("input").val(value);
+                            select.find("option[data-id=\"" + id + "\"]").text(value);
                             entry.changes.push({
                                 name: value,
                                 time: now
