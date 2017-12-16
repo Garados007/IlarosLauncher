@@ -7,6 +7,7 @@ using MaxLib.Net.Webserver;
 
 namespace IlarosLauncher.Services
 {
+#if DEBUG
     class ServerLog : WebService
     {
         public ServerLog() : base(WebServiceType.PreCreateDocument)
@@ -24,7 +25,7 @@ namespace IlarosLauncher.Services
             var log = WebServerInfo.Information.ToArray();
             for (int i = 0; i < log.Length; ++i)
             {
-                text.AppendLine(log[i].ToString().Replace("<", "&lt;").Replace(">", "&gt;") + "<br/>");
+                text.AppendLine(log[i].ToString());
             }
             task.Document.DataSources.Add(new HttpStringDataSource(text.ToString())
             {
@@ -36,4 +37,5 @@ namespace IlarosLauncher.Services
             task.Document.PrimaryEncoding = "utf-8";
         }
     }
+#endif
 }

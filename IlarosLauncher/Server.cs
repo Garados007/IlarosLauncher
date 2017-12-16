@@ -68,6 +68,9 @@ namespace IlarosLauncher
             CurrentServer.AddWebService(new BackgroundImageService());
             CurrentServer.AddWebService(new RunWowService());
             CurrentServer.AddWebService(new RunUrlService());
+#if DEBUG
+            CurrentServer.AddWebService(new ServerLog());
+#endif
         }
 
         private static void GetServerSettings()
