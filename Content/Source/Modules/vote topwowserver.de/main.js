@@ -1,6 +1,7 @@
 ﻿// topwowserver.de automatic voter
 
-var user = "betauser";
+var user = $.User("names", "name[" + $.User("names", "currentId") + "]") || "betauser";
+$.Log("user=" + user);
 var error = false;
 try {
     var code = $.Net.Get("http://www.topwowserver.de/in.php?id=406&user=" + user);

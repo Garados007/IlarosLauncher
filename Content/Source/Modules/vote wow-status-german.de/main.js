@@ -1,6 +1,6 @@
 ﻿// wow-status-german.de automatic voter
 
-var user = "betauser";
+var user = $.User("names", "name[" + $.User("names", "currentId") + "]") || "betauser";
 var error = false;
 try {
     $.Net.Request.Referer = "http://wow.ilaros.de";

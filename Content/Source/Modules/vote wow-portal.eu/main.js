@@ -1,6 +1,6 @@
 ﻿// wow-portal.eu automatic voter
 
-var user = "betauser";
+var user = $.User("names", "name[" + $.User("names", "currentId") + "]") || "betauser";
 var error = false;
 try {
     var code = $.Net.Get("http://wow-portal.eu/toplist.php?mode=in&id=30302");
