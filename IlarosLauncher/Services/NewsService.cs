@@ -78,6 +78,7 @@ namespace IlarosLauncher.Services
                 TextEncoding = "utf-8",
                 TransferCompleteData = true
             });
+            task.Document.ResponseHeader.HeaderParameter["Cache-Control"] = "no-cache, no-store, must-revalidate";
         }
 
         string RandomToken()
