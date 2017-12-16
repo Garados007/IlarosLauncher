@@ -71,6 +71,7 @@
     <Compile Include="Services\ReadyService.cs" />
     <Compile Include="Services\RunUrlService.cs" />
     <Compile Include="Services\RunWowService.cs" />
+    <Compile Include="Services\ServerLog.cs" />
     <Compile Include="Services\ServerScriptService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="WriteAbleStreamFaker.cs" />
