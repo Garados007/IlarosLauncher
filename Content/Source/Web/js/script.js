@@ -92,6 +92,7 @@
                         type: "POST",
                         dataType: "html",
                         success: function (html) {
+                            IL.Names.addName(data.accountname);
                             alert("Account wurde erstellt");
                         },
                         error: function () {
