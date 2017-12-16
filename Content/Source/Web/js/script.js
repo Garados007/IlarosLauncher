@@ -309,11 +309,10 @@ $(function () {
         }
     });
     //Klickbare Links
-    var user = "betauser";
     $(".ext-url").click(function () {
         var url = $(this).attr("data-url");
         if ($(this).hasClass("ext-user"))
-            url = url.replace(/\{0\}/, user);
+            url = url.replace(/\{0\}/, settings("names", "name[" + settings("names", "currentId") + "]") || "betauser");
         $.ajax({
             async: true,
             data: {
